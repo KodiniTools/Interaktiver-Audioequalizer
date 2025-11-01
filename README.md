@@ -159,4 +159,7 @@ Bei Fragen oder Problemen öffnen Sie bitte ein Issue auf GitHub.
 
 ---
 
-Made with ❤️ using Vue 3 and Web Audio API
+❤️ using Vue 3 and Web Audio API
+
+## Autor
+Dinko Ramić Kodini Tools kodinitools.com
