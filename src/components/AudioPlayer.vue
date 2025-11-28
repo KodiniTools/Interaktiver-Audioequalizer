@@ -201,7 +201,13 @@ const handleTimeUpdate = () => {
 const handleEnded = () => {
   console.log('⏹️ Track ended')
   if (!audioStore.isLoop) {
-    nextTrack()
+    // If there are more tracks, play the next one
+    if (audioStore.trackCount > 1) {
+      nextTrack()
+    } else {
+      // Single track finished, stop playing
+      audioStore.setPlaying(false)
+    }
   }
 }
 
@@ -345,7 +351,7 @@ const loadCurrentTrack = async () => {
 // Player Controls
 const togglePlayPause = async () => {
   console.log('🎮 Play/Pause clicked')
-  
+
   // Initialize if needed
   if (!initialized.value) {
     console.log('⚠️ AudioContext not initialized yet')
@@ -353,37 +359,42 @@ const togglePlayPause = async () => {
       alert('Fehler beim Initialisieren des Audio-Systems')
       return
     }
-    
+
     // Connect audio element
     const connected = connectAudioElement(audioElement.value)
     if (!connected) {
       alert('Fehler beim Verbinden des Audio-Elements')
       return
     }
-    
+
     initialized.value = true
     console.log('✅ AudioContext initialized on play click')
   }
-  
+
   // Load track if needed
   if (!audioElement.value.src && audioStore.currentTrack) {
     console.log('⚠️ No audio source, loading track...')
     await loadCurrentTrack()
     await new Promise(resolve => setTimeout(resolve, 500))
   }
-  
+
   if (audioStore.isPlaying) {
     console.log('⏸️ Pausing...')
     pause()
+    audioStore.setPlaying(false)
   } else {
     console.log('▶️ Playing...')
-    await play()
+    const success = await play()
+    if (success) {
+      audioStore.setPlaying(true)
+    }
   }
 }
 
 const stopPlayback = () => {
   console.log('⏹️ Stop clicked')
   stop()
+  audioStore.setPlaying(false)
 }
 
 const nextTrack = async () => {
