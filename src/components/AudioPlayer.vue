@@ -421,15 +421,27 @@ const deleteAllFiles = () => {
   if (confirm(t('controls.deleteAll') + '?')) {
     console.log('🗑️ Deleting all files')
     stop()
-    
+
     // Revoke current object URL
     if (currentObjectURL.value) {
       URL.revokeObjectURL(currentObjectURL.value)
       currentObjectURL.value = null
     }
-    
+
+    // Clear audio source but keep the audio pipeline connected
+    if (audioElement.value) {
+      audioElement.value.src = ''
+      audioElement.value.load()
+    }
+
+    // Reset file input so the same files can be selected again
+    if (fileInput.value) {
+      fileInput.value.value = ''
+    }
+
     audioStore.clearAll()
-    initialized.value = false
+    // NOTE: Keep initialized = true because the audio element
+    // is already connected to AudioContext (can't reconnect)
   }
 }
 

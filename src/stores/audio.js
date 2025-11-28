@@ -36,6 +36,8 @@ export const useAudioStore = defineStore('audio', () => {
     currentIndex.value = 0
     isPlaying.value = false
     isPaused.value = false
+    currentTime.value = 0
+    duration.value = 0
   }
   
   const setCurrentIndex = (index) => {
