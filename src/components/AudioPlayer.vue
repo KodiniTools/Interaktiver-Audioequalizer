@@ -1,7 +1,7 @@
 <template>
   <div class="glass-card player-section">
     <!-- KRITISCH: Audio-Element im DOM! -->
-    <audio 
+    <audio
       ref="audioElement"
       preload="auto"
       crossorigin="anonymous"
@@ -13,31 +13,108 @@
       @error="handleError"
     ></audio>
 
-    <div>
+    <!-- Progress Bar with Track Info -->
+    <div class="player-progress-section" v-if="audioStore.hasFiles">
+      <div class="track-info">
+        <span class="track-title">{{ currentTrackName }}</span>
+        <span class="track-time">{{ formatTime(audioStore.currentTime) }} / {{ formatTime(audioStore.duration) }}</span>
+      </div>
+      <div class="progress-bar-container" @click="seekTo">
+        <div class="progress-bar" :style="{ width: progressPercent + '%' }"></div>
+        <div class="progress-thumb" :style="{ left: progressPercent + '%' }"></div>
+      </div>
+    </div>
+
+    <div class="player-controls-row">
       <div class="file-upload">
-        <input 
-          type="file" 
-          id="audioFile" 
+        <input
+          type="file"
+          id="audioFile"
           ref="fileInput"
-          accept="audio/*" 
-          multiple 
+          accept="audio/*"
+          multiple
           aria-label="Choose audio files"
           @change="handleFileUpload"
         />
         <label for="audioFile" class="file-upload-label">
-          <i class="fas fa-upload"></i>
+          <i class="fas fa-folder-open"></i>
           <span>{{ t('controls.chooseFiles') }}</span>
         </label>
       </div>
-      
+
+      <div class="audio-controls">
+        <button
+          class="control-btn"
+          :title="t('controls.backward')"
+          aria-label="Previous track"
+          @click="previousTrack"
+          :disabled="!audioStore.hasFiles"
+        >
+          <i class="fas fa-backward-step"></i>
+        </button>
+
+        <button
+          class="control-btn primary"
+          :class="{ playing: audioStore.isPlaying }"
+          :title="t('controls.playPause')"
+          aria-label="Play or pause"
+          @click="togglePlayPause"
+          :disabled="!audioStore.hasFiles"
+        >
+          <i :class="audioStore.isPlaying ? 'fas fa-pause' : 'fas fa-play'"></i>
+        </button>
+
+        <button
+          class="control-btn"
+          :title="t('controls.forward')"
+          aria-label="Next track"
+          @click="nextTrack"
+          :disabled="!audioStore.hasFiles"
+        >
+          <i class="fas fa-forward-step"></i>
+        </button>
+
+        <button
+          class="control-btn"
+          :class="{ active: audioStore.isShuffle }"
+          :title="t('controls.shuffle')"
+          aria-label="Shuffle playlist"
+          @click="audioStore.toggleShuffle"
+          :disabled="!audioStore.hasFiles"
+        >
+          <i class="fas fa-shuffle"></i>
+        </button>
+
+        <button
+          class="control-btn"
+          :class="{ active: audioStore.isLoop }"
+          :title="t('controls.loop')"
+          aria-label="Loop playlist"
+          @click="audioStore.toggleLoop"
+          :disabled="!audioStore.hasFiles"
+        >
+          <i class="fas fa-repeat"></i>
+        </button>
+
+        <button
+          class="control-btn danger"
+          :title="t('controls.deleteAll')"
+          aria-label="Delete all files"
+          @click="deleteAllFiles"
+          :disabled="!audioStore.hasFiles"
+        >
+          <i class="fas fa-trash-can"></i>
+        </button>
+      </div>
+
       <div class="volume-section">
-        <label class="volume-label" for="volume">{{ t('controls.volume') }}</label>
+        <i class="fas fa-volume-low volume-icon"></i>
         <div class="volume-slider">
-          <input 
-            id="volume" 
-            type="range" 
-            min="0" 
-            max="100" 
+          <input
+            id="volume"
+            type="range"
+            min="0"
+            max="100"
             v-model="volume"
             aria-label="Volume control"
             @input="updateVolume"
@@ -46,86 +123,11 @@
         <div class="volume-display">{{ volume }}%</div>
       </div>
     </div>
-    
-    <div class="audio-controls">
-      <button 
-        class="control-btn" 
-        :title="t('controls.backward')"
-        aria-label="Previous track"
-        @click="previousTrack"
-        :disabled="!audioStore.hasFiles"
-      >
-        <i class="fas fa-backward"></i>
-      </button>
-      
-      <button 
-        class="control-btn primary" 
-        :class="{ playing: audioStore.isPlaying }"
-        :title="t('controls.playPause')"
-        aria-label="Play or pause"
-        @click="togglePlayPause"
-        :disabled="!audioStore.hasFiles"
-      >
-        <i :class="audioStore.isPlaying ? 'fas fa-pause' : 'fas fa-play'"></i>
-      </button>
-      
-      <button 
-        class="control-btn" 
-        :title="t('controls.stop')"
-        aria-label="Stop playback"
-        @click="stopPlayback"
-        :disabled="!audioStore.hasFiles"
-      >
-        <i class="fas fa-stop"></i>
-      </button>
-      
-      <button 
-        class="control-btn" 
-        :title="t('controls.forward')"
-        aria-label="Next track"
-        @click="nextTrack"
-        :disabled="!audioStore.hasFiles"
-      >
-        <i class="fas fa-forward"></i>
-      </button>
-      
-      <button 
-        class="control-btn" 
-        :class="{ active: audioStore.isShuffle }"
-        :title="t('controls.shuffle')"
-        aria-label="Shuffle playlist"
-        @click="audioStore.toggleShuffle"
-        :disabled="!audioStore.hasFiles"
-      >
-        <i class="fas fa-random"></i>
-      </button>
-      
-      <button 
-        class="control-btn" 
-        :class="{ active: audioStore.isLoop }"
-        :title="t('controls.loop')"
-        aria-label="Loop playlist"
-        @click="audioStore.toggleLoop"
-        :disabled="!audioStore.hasFiles"
-      >
-        <i class="fas fa-repeat"></i>
-      </button>
-      
-      <button 
-        class="control-btn danger" 
-        :title="t('controls.deleteAll')"
-        aria-label="Delete all files"
-        @click="deleteAllFiles"
-        :disabled="!audioStore.hasFiles"
-      >
-        <i class="fas fa-trash"></i>
-      </button>
-    </div>
   </div>
 </template>
 
 <script setup>
-import { ref, watch, onMounted } from 'vue'
+import { ref, computed, watch, onMounted } from 'vue'
 import { useAudioStore } from '../stores/audio'
 import { useI18nStore } from '../stores/i18n'
 import { useAudioEqualizer } from '../composables/useAudioEqualizer'
@@ -141,6 +143,37 @@ const audioElement = ref(null)
 const volume = ref(audioStore.volume)
 const initialized = ref(false)
 const currentObjectURL = ref(null)
+
+// Computed properties for progress bar
+const currentTrackName = computed(() => {
+  const track = audioStore.currentTrack
+  if (!track) return 'no track loaded'
+  // Remove file extension and clean up name
+  return track.name.replace(/\.[^/.]+$/, '').toLowerCase()
+})
+
+const progressPercent = computed(() => {
+  if (!audioStore.duration || audioStore.duration === 0) return 0
+  return (audioStore.currentTime / audioStore.duration) * 100
+})
+
+// Format time helper
+const formatTime = (seconds) => {
+  if (!seconds || isNaN(seconds)) return '0:00'
+  const mins = Math.floor(seconds / 60)
+  const secs = Math.floor(seconds % 60)
+  return `${mins}:${secs.toString().padStart(2, '0')}`
+}
+
+// Seek to position
+const seekTo = (event) => {
+  if (!audioElement.value || !audioStore.duration) return
+  const rect = event.currentTarget.getBoundingClientRect()
+  const clickX = event.clientX - rect.left
+  const percent = clickX / rect.width
+  const newTime = percent * audioStore.duration
+  audioElement.value.currentTime = newTime
+}
 
 // Event Handlers
 const handleMetadataLoaded = () => {
