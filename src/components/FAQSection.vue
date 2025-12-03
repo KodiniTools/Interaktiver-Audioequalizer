@@ -44,22 +44,22 @@ const faqItems = computed(() => {
       {
         icon: 'fas fa-file-audio',
         question: 'Welche Audioformate werden unterstützt?',
-        answer: 'Der Audio Equalizer unterstützt alle gängigen Audioformate, die von modernen Webbrowsern unterstützt werden, einschließlich MP3, WAV, FLAC, OGG, M4A und AAC. Die Anwendung nutzt die HTML5 Audio API für optimale Kompatibilität.'
+        answer: 'Der Audio-Equalizer unterstützt alle gängigen Audioformate, die von modernen Webbrowsern unterstützt werden, einschließlich MP3, WAV, FLAC, OGG, M4A und AAC. Die Anwendung nutzt die HTML5-Audio-API für optimale Kompatibilität.'
       },
       {
         icon: 'fas fa-sliders-h',
-        question: 'Wie funktioniert der 15-Band Equalizer?',
+        question: 'Wie funktioniert der 15-Band-Equalizer?',
         answer: 'Der Equalizer arbeitet mit 15 präzisen Frequenzbändern von 25 Hz bis 16,7 kHz. Jeder Regler kann um ±40 dB angepasst werden. Die Einstellungen werden in Echtzeit auf das Audio angewendet, ohne Latenz oder Qualitätsverlust.'
       },
       {
         icon: 'fas fa-chart-line',
-        question: 'Was zeigt der Audio Visualizer an?',
-        answer: 'Der Visualizer zeigt Frequenzspektrum-Balken in Echtzeit an, gespiegelt für einen symmetrischen Effekt. Zusätzlich werden RMS-Pegel (grün-blauer Balken) und Peak-Werte (rote Linie) angezeigt, um die Audio-Dynamik zu visualisieren.'
+        question: 'Was zeigt der Audio-Visualisierer an?',
+        answer: 'Der Visualisierer zeigt Frequenzspektrum-Balken in Echtzeit an, gespiegelt für einen symmetrischen Effekt. Zusätzlich werden RMS-Pegel (grün-blauer Balken) und Peak-Werte (rote Linie) angezeigt, um die Audiodynamik zu visualisieren.'
       },
       {
         icon: 'fas fa-list',
         question: 'Kann ich mehrere Dateien gleichzeitig laden?',
-        answer: 'Ja, Sie können mehrere Audiodateien gleichzeitig auswählen. Diese werden automatisch zur Playlist hinzugefügt und können in der Seitenleiste verwaltet werden. Die Wiedergabe erfolgt nacheinander oder im Shuffle-Modus.'
+        answer: 'Ja, Sie können mehrere Audiodateien gleichzeitig auswählen. Diese werden automatisch zur Wiedergabeliste hinzugefügt und können in der Seitenleiste verwaltet werden. Die Wiedergabe erfolgt nacheinander oder im Zufallsmodus.'
       },
       {
         icon: 'fas fa-mobile-alt',
@@ -69,7 +69,7 @@ const faqItems = computed(() => {
       {
         icon: 'fas fa-database',
         question: 'Werden meine Audiodateien gespeichert oder übertragen?',
-        answer: 'Nein, alle Audiodateien bleiben vollständig auf Ihrem Gerät. Die Verarbeitung erfolgt lokal im Browser mit der Web Audio API. Es werden keine Daten übertragen oder auf Servern gespeichert - maximale Privatsphäre und Sicherheit.'
+        answer: 'Nein, alle Audiodateien bleiben vollständig auf Ihrem Gerät. Die Verarbeitung erfolgt lokal im Browser mit der Web-Audio-API. Es werden keine Daten übertragen oder auf Servern gespeichert – maximale Privatsphäre und Sicherheit.'
       }
     ]
   } else {

@@ -29,7 +29,7 @@
       </div>
       
       <div v-else class="playlist-empty">
-        {{ currentLang === 'de' ? 'Keine Tracks in der Playlist' : 'No tracks in playlist' }}
+        {{ currentLang === 'de' ? 'Keine Titel in der Wiedergabeliste' : 'No tracks in playlist' }}
       </div>
     </div>
   </div>
@@ -50,7 +50,7 @@ const selectTrack = (index) => {
 }
 
 const removeTrack = (index) => {
-  if (confirm(currentLang.value === 'de' ? 'Track entfernen?' : 'Remove track?')) {
+  if (confirm(currentLang.value === 'de' ? 'Titel entfernen?' : 'Remove track?')) {
     audioStore.removeTrack(index)
   }
 }
