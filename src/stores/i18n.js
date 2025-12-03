@@ -4,63 +4,63 @@ import { ref, computed } from 'vue'
 const translations = {
   de: {
     header: {
-      title: 'Interactive Audio Equalizer',
-      subtitle: 'Professional Audio Processing with Real-time Visualization'
+      title: 'Interaktiver Audio-Equalizer',
+      subtitle: 'Professionelle Audioverarbeitung mit Echtzeit-Visualisierung'
     },
     controls: {
-      chooseFiles: 'Audio Dateien wählen',
+      chooseFiles: 'Audiodateien wählen',
       volume: 'Lautstärke',
       backward: 'Zurück',
       playPause: 'Play/Pause',
-      stop: 'Stop',
+      stop: 'Stopp',
       forward: 'Weiter',
-      shuffle: 'Shuffle',
-      loop: 'Loop',
+      shuffle: 'Zufallswiedergabe',
+      loop: 'Wiederholen',
       deleteAll: 'Alle Dateien löschen'
     },
     visualizer: {
-      title: 'Audio Visualizer'
+      title: 'Audio-Visualisierer'
     },
     equalizer: {
-      title: '15-Band Equalizer',
-      reset: 'Reset'
+      title: '15-Band-Equalizer',
+      reset: 'Zurücksetzen'
     },
     playlist: {
-      title: 'Playlist',
-      tracks: 'Tracks'
+      title: 'Wiedergabeliste',
+      tracks: 'Titel'
     },
     tools: {
-      title: 'Weitere Audio-Tools entdecken',
-      subtitle: 'Professionelle Audio-Werkzeuge für alle Ihre Bedürfnisse',
+      title: 'Weitere Audiotools entdecken',
+      subtitle: 'Professionelle Audiowerkzeuge für alle Ihre Bedürfnisse',
       cta: 'Alle Tools entdecken',
       modernPlayer: {
         title: 'Moderner Musikplayer',
-        desc: 'Eleganter Audio-Player mit erweiterten Funktionen und modernem Design',
+        desc: 'Eleganter Audioplayer mit erweiterten Funktionen und modernem Design',
         feature1: 'Playlist-Verwaltung',
-        feature2: 'Visualizer'
+        feature2: 'Visualisierer'
       },
       playlistGen: {
-        title: 'Playlist Generator',
+        title: 'Playlist-Generator',
         desc: 'Intelligenter Generator für personalisierte Musik-Playlists',
-        feature1: 'Auto-Erstellung',
+        feature1: 'Automatische Erstellung',
         feature2: 'Genre-Filter'
       },
       ultimatePlayer: {
         title: 'Ultimativer Musikplayer',
-        desc: 'Professioneller Player mit erweiterten Audio-Processing-Features',
-        feature1: 'Pro-Features',
-        feature2: 'Advanced EQ'
+        desc: 'Professioneller Player mit erweiterten Audioverarbeitungs-Funktionen',
+        feature1: 'Profi-Funktionen',
+        feature2: 'Erweiterter Equalizer'
       },
       converter: {
-        title: 'Audio Konverter',
-        desc: 'Konvertieren Sie Audio-Dateien zwischen verschiedenen Formaten',
+        title: 'Audiokonverter',
+        desc: 'Konvertieren Sie Audiodateien zwischen verschiedenen Formaten',
         feature1: 'Multi-Format',
-        feature2: 'Batch-Verarbeitung'
+        feature2: 'Stapelverarbeitung'
       }
     },
     faq: {
       title: 'Häufig gestellte Fragen (FAQ)',
-      subtitle: 'Alles was Sie über den Audio Equalizer wissen müssen'
+      subtitle: 'Alles, was Sie über den Audio-Equalizer wissen müssen'
     }
   },
   en: {

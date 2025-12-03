@@ -305,7 +305,6 @@ body {
   text-shadow: none;
   margin: 0;
   letter-spacing: 0.02em;
-  text-transform: lowercase;
 }
 
 .header .subtitle {
@@ -313,7 +312,6 @@ body {
   font-size: 0.9rem;
   margin-top: var(--spacing-sm);
   opacity: 0.7;
-  text-transform: lowercase;
   font-weight: 400;
 }
 
@@ -462,7 +460,6 @@ body {
   box-shadow: var(--glow-primary);
   position: relative;
   overflow: hidden;
-  text-transform: lowercase;
 }
 
 .file-upload-label:hover {
@@ -575,7 +572,6 @@ body {
   font-weight: 500;
   font-size: 0.8rem;
   min-width: 60px;
-  text-transform: lowercase;
 }
 
 .volume-slider {
@@ -642,7 +638,6 @@ body {
   font-size: 1rem;
   font-weight: 500;
   margin: 0;
-  text-transform: lowercase;
 }
 
 .playlist-count {
@@ -768,7 +763,6 @@ body {
   font-size: 1rem;
   font-weight: 500;
   margin: 0;
-  text-transform: lowercase;
 }
 
 .reset-btn {
@@ -784,7 +778,6 @@ body {
   display: flex;
   align-items: center;
   gap: 6px;
-  text-transform: lowercase;
 }
 
 .reset-btn:hover {
@@ -1340,7 +1333,6 @@ input:checked + .cookie-slider:before {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   margin: 0 0 var(--spacing-sm) 0;
-  text-transform: lowercase;
 }
 
 .tools-subtitle, .faq-subtitle {
@@ -1348,7 +1340,6 @@ input:checked + .cookie-slider:before {
   font-size: 0.9rem;
   margin: 0;
   opacity: 0.7;
-  text-transform: lowercase;
 }
 
 .tools-grid {
@@ -1416,7 +1407,6 @@ input:checked + .cookie-slider:before {
   font-size: 1rem;
   font-weight: 500;
   color: var(--text-primary);
-  text-transform: lowercase;
 }
 
 .tool-content p {
@@ -1473,7 +1463,6 @@ input:checked + .cookie-slider:before {
   box-shadow: var(--glow-primary);
   position: relative;
   overflow: hidden;
-  text-transform: lowercase;
 }
 
 .cta-button::before {
@@ -1544,7 +1533,6 @@ input:checked + .cookie-slider:before {
   font-weight: 500;
   font-size: 0.95rem;
   color: var(--text-primary);
-  text-transform: lowercase;
 }
 
 .faq-arrow {

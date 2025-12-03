@@ -147,9 +147,9 @@ const currentObjectURL = ref(null)
 // Computed properties for progress bar
 const currentTrackName = computed(() => {
   const track = audioStore.currentTrack
-  if (!track) return 'no track loaded'
-  // Remove file extension and clean up name
-  return track.name.replace(/\.[^/.]+$/, '').toLowerCase()
+  if (!track) return i18nStore.currentLang === 'de' ? 'Kein Titel geladen' : 'No track loaded'
+  // Remove file extension
+  return track.name.replace(/\.[^/.]+$/, '')
 })
 
 const progressPercent = computed(() => {
