@@ -3,36 +3,36 @@
    =========================== */
 :root {
   /* Custom Color Palette */
-  --color-gold: #F2E28E;
-  --color-mauve: #A28680;
-  --color-slate: #5E5F69;
-  --color-silver: #AEAFB7;
-  --color-night: #0C0C10;
+  --color-gold: #c9984d;
+  --color-mauve: #014f99;
+  --color-slate: #0E1C32;
+  --color-silver: #7A8DA0;
+  --color-night: #091428;
 
   /* Base Colors */
   --base-green: #7cb97c;
   --base-red: #c97c7c;
-  --base-yellow: #F2E28E;
+  --base-yellow: #c9984d;
 
   /* Dark Theme Colors */
-  --dark-bg: #0C0C10;
-  --dark-panel: #1a1a1f;
-  --dark-text: #f0f0f0;
-  --dark-muted: #AEAFB7;
-  --dark-accent: #F2E28E;
-  --dark-accent-text: #0C0C10;
-  --dark-btn: #5E5F69;
-  --dark-btn-hover: #6e6f79;
-  --dark-ring: #F2E28E;
-  --dark-border-color: rgb(174 175 183 / 20%);
-  --dark-shadow-color: rgb(12 12 16 / 60%);
-  --dark-gradient-color: rgb(94 95 105 / 8%);
-  --dark-panel-highlight: rgb(242 226 142 / 5%);
-  --dark-progress-bg: rgb(174 175 183 / 20%);
-  --dark-body-gradient: radial-gradient(1200px 600px at 80% -20%, #1f1f2a 0%, transparent 60%), #0C0C10;
+  --dark-bg: #091428;
+  --dark-panel: #142640;
+  --dark-text: #f9f2d5;
+  --dark-muted: #7A8DA0;
+  --dark-accent: #c9984d;
+  --dark-accent-text: #091428;
+  --dark-btn: #0E1C32;
+  --dark-btn-hover: #142640;
+  --dark-ring: #c9984d;
+  --dark-border-color: rgb(1 79 153 / 20%);
+  --dark-shadow-color: rgb(9 20 40 / 60%);
+  --dark-gradient-color: rgb(1 79 153 / 8%);
+  --dark-panel-highlight: rgb(201 152 77 / 5%);
+  --dark-progress-bg: rgb(122 141 160 / 20%);
+  --dark-body-gradient: radial-gradient(1200px 600px at 80% -20%, #0E1C32 0%, transparent 60%), #091428;
 
   /* Canvas Background */
-  --fixed-canvas-bg: #0C0C10;
+  --fixed-canvas-bg: #091428;
 
   /* Semantic Color Mapping */
   --primary-bg: var(--dark-bg);
@@ -52,8 +52,8 @@
   --panel-highlight: var(--dark-panel-highlight);
 
   /* Glow Effects */
-  --glow-primary: 0 0 15px rgba(242, 226, 142, 0.3);
-  --glow-secondary: 0 0 12px rgba(162, 134, 128, 0.3);
+  --glow-primary: 0 0 15px rgba(201, 152, 77, 0.3);
+  --glow-secondary: 0 0 12px rgba(1, 79, 153, 0.3);
   --glow-accent: 0 0 10px rgba(124, 185, 124, 0.3);
 
   /* Spacing & Border Radius */
@@ -330,8 +330,8 @@ body {
 }
 
 .glass-card:hover {
-  border-color: rgba(242, 226, 142, 0.2);
-  box-shadow: 0 6px 24px rgba(12, 12, 16, 0.4);
+  border-color: rgba(201, 152, 77, 0.2);
+  box-shadow: 0 6px 24px rgba(9, 20, 40, 0.4);
 }
 
 .glass-card::before {
@@ -429,7 +429,7 @@ body {
   transform: translateX(-50%) translateY(-50%) scale(0.8);
   opacity: 0;
   transition: all var(--transition-fast);
-  box-shadow: 0 2px 6px rgba(242, 226, 142, 0.4);
+  box-shadow: 0 2px 6px rgba(201, 152, 77, 0.4);
   pointer-events: none;
 }
 
@@ -465,7 +465,7 @@ body {
 .file-upload-label:hover {
   transform: translateY(-1px);
   background: #e6d67e;
-  box-shadow: 0 6px 20px rgba(242, 226, 142, 0.35);
+  box-shadow: 0 6px 20px rgba(201, 152, 77, 0.35);
 }
 
 .file-upload-label:focus-within {
@@ -601,7 +601,7 @@ body {
   border-radius: 50%;
   background: var(--color-gold);
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(242, 226, 142, 0.4);
+  box-shadow: 0 2px 8px rgba(201, 152, 77, 0.4);
   transition: all var(--transition-normal);
 }
 
@@ -651,7 +651,7 @@ body {
   max-height: 280px;
   overflow-y: auto;
   border-radius: var(--border-radius);
-  background: rgba(12, 12, 16, 0.3);
+  background: rgba(9, 20, 40, 0.3);
 }
 
 .playlist-container::-webkit-scrollbar {
@@ -685,7 +685,7 @@ body {
 }
 
 .playlist-item:hover {
-  background: rgba(162, 134, 128, 0.1);
+  background: rgba(1, 79, 153, 0.1);
   transform: translateX(3px);
 }
 
@@ -694,7 +694,7 @@ body {
 }
 
 .playlist-item.active {
-  background: linear-gradient(90deg, rgba(242, 226, 142, 0.1), rgba(162, 134, 128, 0.05));
+  background: linear-gradient(90deg, rgba(201, 152, 77, 0.1), rgba(1, 79, 153, 0.05));
   border-left: 2px solid var(--color-gold);
 }
 
@@ -840,7 +840,7 @@ body {
   justify-content: space-between;
   align-items: flex-end;
   padding: var(--spacing-md);
-  background: rgba(12, 12, 16, 0.3);
+  background: rgba(9, 20, 40, 0.3);
   border-radius: var(--border-radius);
   overflow-x: auto;
   min-height: 200px;
@@ -888,7 +888,7 @@ body {
   border-radius: 50%;
   background: var(--color-gold);
   cursor: pointer;
-  box-shadow: 0 2px 6px rgba(242, 226, 142, 0.4);
+  box-shadow: 0 2px 6px rgba(201, 152, 77, 0.4);
   transition: all var(--transition-normal);
 }
 
@@ -904,7 +904,7 @@ body {
   background: var(--color-gold);
   border: none;
   cursor: pointer;
-  box-shadow: 0 2px 6px rgba(242, 226, 142, 0.4);
+  box-shadow: 0 2px 6px rgba(201, 152, 77, 0.4);
   transition: all var(--transition-normal);
 }
 
@@ -913,7 +913,7 @@ body {
   top: -24px;
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(12, 12, 16, 0.9);
+  background: rgba(9, 20, 40, 0.9);
   color: var(--color-gold);
   padding: 2px 5px;
   border-radius: 3px;
@@ -1483,7 +1483,7 @@ input:checked + .cookie-slider:before {
 
 .cta-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(242, 226, 142, 0.35);
+  box-shadow: 0 6px 20px rgba(201, 152, 77, 0.35);
 }
 
 /* FAQ Specific Styles */
