@@ -15,20 +15,20 @@ export const useThemeStore = defineStore('theme', () => {
     const root = document.documentElement
 
     if (theme === 'light') {
-      // Light theme with good contrasts
-      root.style.setProperty('--primary-bg', '#f8f8fa')
+      // Light theme with blue/gold color scheme
+      root.style.setProperty('--primary-bg', '#F5F4D6')
       root.style.setProperty('--card-bg', '#ffffff')
-      root.style.setProperty('--text-primary', '#1a1a1f')
-      root.style.setProperty('--text-secondary', '#5E5F69')
-      root.style.setProperty('--glass-bg', 'rgba(255, 255, 255, 0.85)')
-      root.style.setProperty('--glass-border', 'rgba(94, 95, 105, 0.2)')
-      root.style.setProperty('--panel-highlight', 'rgba(162, 134, 128, 0.08)')
-      root.style.setProperty('--dark-shadow-color', 'rgba(94, 95, 105, 0.15)')
-      root.style.setProperty('--dark-progress-bg', 'rgba(94, 95, 105, 0.12)')
-      root.style.setProperty('--dark-body-gradient', 'linear-gradient(135deg, #f0f0f4 0%, #f8f8fa 100%)')
-      root.style.setProperty('--dark-btn', '#e8e8ec')
-      root.style.setProperty('--dark-btn-hover', '#d8d8dc')
-      document.body.style.background = 'linear-gradient(135deg, #f0f0f4 0%, #f8f8fa 100%)'
+      root.style.setProperty('--text-primary', '#003971')
+      root.style.setProperty('--text-secondary', '#014f99')
+      root.style.setProperty('--glass-bg', 'rgba(255, 255, 255, 0.88)')
+      root.style.setProperty('--glass-border', 'rgba(1, 79, 153, 0.18)')
+      root.style.setProperty('--panel-highlight', 'rgba(201, 152, 77, 0.08)')
+      root.style.setProperty('--dark-shadow-color', 'rgba(0, 57, 113, 0.15)')
+      root.style.setProperty('--dark-progress-bg', 'rgba(1, 79, 153, 0.12)')
+      root.style.setProperty('--dark-body-gradient', 'linear-gradient(135deg, #F5F4D6 0%, #f9f2d5 100%)')
+      root.style.setProperty('--dark-btn', '#014f99')
+      root.style.setProperty('--dark-btn-hover', '#003971')
+      document.body.style.background = 'linear-gradient(135deg, #F5F4D6 0%, #f9f2d5 100%)'
     } else {
       // Dark theme with custom color scheme
       root.style.setProperty('--primary-bg', '#0C0C10')
