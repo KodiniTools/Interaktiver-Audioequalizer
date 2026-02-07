@@ -293,6 +293,7 @@ body {
 .header {
   text-align: center;
   margin-bottom: var(--spacing-xl);
+  padding-top: 70px;
 }
 
 .header h1 {
