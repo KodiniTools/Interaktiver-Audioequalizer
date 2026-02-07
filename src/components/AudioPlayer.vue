@@ -314,21 +314,34 @@ const loadCurrentTrack = async () => {
     console.log('⏳ Waiting for audio to be ready...')
     await new Promise((resolve, reject) => {
       const timeout = setTimeout(() => {
+        cleanup()
         reject(new Error('Timeout waiting for audio to load'))
       }, 5000)
-      
-      if (audioElement.value.readyState >= 2) {
+
+      const cleanup = () => {
         clearTimeout(timeout)
+        audioElement.value.removeEventListener('canplay', onCanPlay)
+        audioElement.value.removeEventListener('error', onError)
+      }
+
+      const onCanPlay = () => {
+        cleanup()
+        console.log('✅ Audio ready (readyState:', audioElement.value.readyState, ')')
+        resolve()
+      }
+
+      const onError = () => {
+        cleanup()
+        reject(new Error(audioElement.value.error?.message || 'Audio load error'))
+      }
+
+      if (audioElement.value.readyState >= 2) {
+        cleanup()
         console.log('✅ Audio already ready (readyState:', audioElement.value.readyState, ')')
         resolve()
       } else {
-        const onCanPlay = () => {
-          clearTimeout(timeout)
-          console.log('✅ Audio ready after waiting (readyState:', audioElement.value.readyState, ')')
-          audioElement.value.removeEventListener('canplay', onCanPlay)
-          resolve()
-        }
         audioElement.value.addEventListener('canplay', onCanPlay)
+        audioElement.value.addEventListener('error', onError)
       }
     })
     
@@ -400,21 +413,11 @@ const stopPlayback = () => {
 const nextTrack = async () => {
   console.log('⏭️ Next track clicked')
   audioStore.nextTrack()
-  await loadCurrentTrack()
-  if (audioStore.isPlaying) {
-    await new Promise(resolve => setTimeout(resolve, 300))
-    await play()
-  }
 }
 
 const previousTrack = async () => {
   console.log('⏮️ Previous track clicked')
   audioStore.previousTrack()
-  await loadCurrentTrack()
-  if (audioStore.isPlaying) {
-    await new Promise(resolve => setTimeout(resolve, 300))
-    await play()
-  }
 }
 
 const deleteAllFiles = () => {
@@ -450,11 +453,16 @@ const updateVolume = () => {
   setVolume(newVolume)
 }
 
-// Watch for track changes
+// Watch for track changes (single entry point for next/prev/playlist clicks)
 watch(() => audioStore.currentIndex, async (newIndex, oldIndex) => {
   if (newIndex !== oldIndex) {
     console.log('📋 Track index changed from', oldIndex, 'to', newIndex)
+    const wasPlaying = audioStore.isPlaying
     await loadCurrentTrack()
+    if (wasPlaying) {
+      await new Promise(resolve => setTimeout(resolve, 300))
+      await play()
+    }
   }
 })
 
