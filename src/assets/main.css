@@ -1774,57 +1774,6 @@ input:checked + .cookie-slider:before {
 .visualizer-select:focus-visible {
   outline-offset: 1px;
 }
-/* ===========================
-   THEME & LANGUAGE CONTROLS
-   =========================== */
-
-.app-controls {
-  position: fixed;
-  top: 16px;
-  right: 16px;
-  z-index: 1000;
-  display: flex;
-  gap: 8px;
-}
-
-.control-icon-btn {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: var(--color-slate);
-  border: 1px solid var(--glass-border);
-  color: var(--color-silver);
-  font-size: 0.9rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all var(--transition-normal);
-  box-shadow: 0 2px 8px var(--dark-shadow-color);
-}
-
-.control-icon-btn:hover {
-  transform: scale(1.05);
-  background: var(--color-gold);
-  color: var(--color-night);
-  box-shadow: var(--glow-primary);
-  border-color: var(--color-gold);
-}
-
-.control-icon-btn:active {
-  transform: scale(0.95);
-}
-
-.control-icon-btn:focus-visible {
-  outline: 2px solid var(--color-gold);
-  outline-offset: 2px;
-}
-
-.lang-flag {
-  font-size: 1.1rem;
-  line-height: 1;
-}
-
 /* Light Theme Specific Adjustments */
 body[data-theme="light"] {
   color: var(--text-primary);
@@ -2077,18 +2026,6 @@ body[data-theme="light"] .status-item {
   border-color: rgba(1, 79, 153, 0.12);
 }
 
-body[data-theme="light"] .control-icon-btn {
-  background: #f8e1a9;
-  color: #003971;
-  border-color: rgba(1, 79, 153, 0.18);
-}
-
-body[data-theme="light"] .control-icon-btn:hover {
-  background: #014f99;
-  color: #F5F4D6;
-  border-color: #014f99;
-}
-
 /* Smooth transitions for theme changes */
 body,
 .glass-card,
@@ -2107,18 +2044,6 @@ body,
 
 /* Responsive adjustments for controls */
 @media (max-width: 768px) {
-  .app-controls {
-    top: 10px;
-    right: 10px;
-    gap: 6px;
-  }
-
-  .control-icon-btn {
-    width: 32px;
-    height: 32px;
-    font-size: 0.85rem;
-  }
-
   .control-btn {
     width: 32px;
     height: 32px;

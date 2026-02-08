@@ -1,8 +1,5 @@
 <template>
   <div :data-theme="currentTheme" class="app-wrapper">
-    <!-- Theme & Language Controls -->
-    <AppControls />
-    
     <!-- Header -->
     <AppHeader />
     
@@ -36,7 +33,6 @@
 <script setup>
 import { computed } from 'vue'
 import { useThemeStore } from './stores/theme'
-import AppControls from './components/AppControls.vue'
 import AppHeader from './components/AppHeader.vue'
 import AudioPlayer from './components/AudioPlayer.vue'
 import AudioVisualizer from './components/AudioVisualizer.vue'
