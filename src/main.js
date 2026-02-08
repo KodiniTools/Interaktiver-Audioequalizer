@@ -28,5 +28,8 @@ document.querySelectorAll('.global-nav-lang-btn').forEach(btn => {
     document.querySelectorAll('.global-nav-lang-btn').forEach(b => {
       b.classList.toggle('active', b.getAttribute('data-lang') === targetLang)
     })
+
+    // Notify SSI navigation to translate itself
+    window.dispatchEvent(new CustomEvent('language-changed', { detail: { lang: targetLang } }))
   }, true) // capture phase: runs before the nav's bubble phase handler
 })
