@@ -9,20 +9,17 @@ const pinia = createPinia()
 app.use(pinia)
 app.mount('#app')
 
-// Intercept global navigation language buttons to sync with Vue i18n store.
-// preventDefault() stops the default browser action (e.g. link navigation/reload)
-// but lets the SSI nav's own click handler run so it can call translateNav().
+// Listen for the SSI nav's language-changed event to sync the Vue i18n store.
+// The SSI nav handles clicks on .global-nav-lang-btn itself (translateNav + button states).
+// We only react to its event to update the page content via the Vue i18n store.
 import { useI18nStore } from './stores/i18n'
 
-document.querySelectorAll('.global-nav-lang-btn').forEach(btn => {
-  btn.addEventListener('click', (e) => {
-    e.preventDefault()
+window.addEventListener('language-changed', (e) => {
+  const lang = e.detail?.lang
+  if (!lang) return
 
-    const targetLang = btn.getAttribute('data-lang')
-    const i18nStore = useI18nStore()
-
-    if (targetLang === i18nStore.currentLang) return
-
-    i18nStore.setLanguage(targetLang)
-  })
+  const i18nStore = useI18nStore()
+  if (lang !== i18nStore.currentLang) {
+    i18nStore.setLanguage(lang)
+  }
 })
