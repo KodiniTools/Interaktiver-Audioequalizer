@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 
 const translations = {
   de: {
@@ -127,40 +127,34 @@ const translations = {
 }
 
 export const useI18nStore = defineStore('i18n', () => {
-  const currentLang = ref(localStorage.getItem('language') || 'de')
-  
+  const currentLang = ref(localStorage.getItem('locale') || localStorage.getItem('language') || 'de')
+
   const t = (key) => {
     const keys = key.split('.')
     let value = translations[currentLang.value]
-    
+
     for (const k of keys) {
       value = value?.[k]
       if (!value) return key
     }
-    
+
     return value
   }
-  
+
   const setLanguage = (lang) => {
     if (translations[lang]) {
       currentLang.value = lang
-      localStorage.setItem('language', lang)
+      localStorage.setItem('locale', lang)
       document.documentElement.lang = lang
     }
   }
-  
-  const toggleLanguage = () => {
-    const newLang = currentLang.value === 'de' ? 'en' : 'de'
-    setLanguage(newLang)
-  }
-  
+
   // Initialize
   setLanguage(currentLang.value)
-  
+
   return {
     currentLang,
     t,
-    setLanguage,
-    toggleLanguage
+    setLanguage
   }
 })
