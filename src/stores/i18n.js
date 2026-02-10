@@ -141,11 +141,22 @@ export const useI18nStore = defineStore('i18n', () => {
     return value
   }
 
+  /**
+   * Update all SSI elements that use the data-lang-de / data-lang-en pattern.
+   */
+  const translateDataLangElements = (lang) => {
+    document.querySelectorAll(`[data-lang-${lang}]`).forEach((el) => {
+      el.textContent = el.getAttribute(`data-lang-${lang}`)
+    })
+  }
+
   const setLanguage = (lang) => {
     if (translations[lang]) {
       currentLang.value = lang
       localStorage.setItem('locale', lang)
       document.documentElement.lang = lang
+      translateDataLangElements(lang)
+      window.dispatchEvent(new CustomEvent('language-changed', { detail: { lang } }))
     }
   }
 
