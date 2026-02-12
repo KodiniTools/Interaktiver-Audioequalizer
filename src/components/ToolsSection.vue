@@ -9,7 +9,7 @@
       <div class="tools-grid">
         <a href="https://kodinitools.com/modernermusikplayer/" class="tool-card">
           <div class="tool-icon">
-            <i class="fas fa-play-circle"></i>
+            <SvgIcon name="play-circle" />
           </div>
           <div class="tool-content">
             <h3>{{ t('tools.modernPlayer.title') }}</h3>
@@ -20,13 +20,13 @@
             </div>
           </div>
           <div class="tool-arrow">
-            <i class="fas fa-arrow-right"></i>
+            <SvgIcon name="arrow-right" />
           </div>
         </a>
 
         <a href="https://kodinitools.com/playlist_generator/" class="tool-card">
           <div class="tool-icon">
-            <i class="fas fa-list-ul"></i>
+            <SvgIcon name="list-ul" />
           </div>
           <div class="tool-content">
             <h3>{{ t('tools.playlistGen.title') }}</h3>
@@ -37,13 +37,13 @@
             </div>
           </div>
           <div class="tool-arrow">
-            <i class="fas fa-arrow-right"></i>
+            <SvgIcon name="arrow-right" />
           </div>
         </a>
 
         <a href="https://kodinitools.com/ultimativermusikplayer/" class="tool-card">
           <div class="tool-icon">
-            <i class="fas fa-compact-disc"></i>
+            <SvgIcon name="compact-disc" />
           </div>
           <div class="tool-content">
             <h3>{{ t('tools.ultimatePlayer.title') }}</h3>
@@ -54,13 +54,13 @@
             </div>
           </div>
           <div class="tool-arrow">
-            <i class="fas fa-arrow-right"></i>
+            <SvgIcon name="arrow-right" />
           </div>
         </a>
 
         <a href="https://kodinitools.com/audiokonverter/" class="tool-card">
           <div class="tool-icon">
-            <i class="fas fa-exchange-alt"></i>
+            <SvgIcon name="exchange-alt" />
           </div>
           <div class="tool-content">
             <h3>{{ t('tools.converter.title') }}</h3>
@@ -71,14 +71,14 @@
             </div>
           </div>
           <div class="tool-arrow">
-            <i class="fas fa-arrow-right"></i>
+            <SvgIcon name="arrow-right" />
           </div>
         </a>
       </div>
       
       <div class="tools-cta">
         <a href="https://kodinitools.com" class="cta-button">
-          <i class="fas fa-tools"></i>
+          <SvgIcon name="tools" />
           <span>{{ t('tools.cta') }}</span>
         </a>
       </div>
@@ -88,6 +88,7 @@
 
 <script setup>
 import { useI18nStore } from '../stores/i18n'
+import SvgIcon from './SvgIcon.vue'
 
 const i18nStore = useI18nStore()
 const t = i18nStore.t

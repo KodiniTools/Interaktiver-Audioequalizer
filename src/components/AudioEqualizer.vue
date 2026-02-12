@@ -3,7 +3,7 @@
     <div class="equalizer-header">
       <h2 class="equalizer-title">{{ t('equalizer.title') }}</h2>
       <button class="reset-btn" @click="handleReset">
-        <i class="fas fa-undo"></i>
+        <SvgIcon name="undo" />
         <span>{{ t('equalizer.reset') }}</span>
       </button>
     </div>
@@ -35,6 +35,7 @@
 import { ref } from 'vue'
 import { useI18nStore } from '../stores/i18n'
 import { useAudioEqualizer } from '../composables/useAudioEqualizer'
+import SvgIcon from './SvgIcon.vue'
 
 const i18nStore = useI18nStore()
 const t = i18nStore.t
