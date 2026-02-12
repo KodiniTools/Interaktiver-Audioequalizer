@@ -815,7 +815,7 @@ body {
 
 .visualizer-canvas {
   width: 100%;
-  height: 150px;
+  height: 300px;
   border-radius: var(--border-radius);
   background: var(--fixed-canvas-bg);
   border: 1px solid var(--glass-border);
@@ -1356,7 +1356,7 @@ input:checked + .cookie-slider:before {
 
 .tools-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
   gap: var(--spacing-lg);
   margin-bottom: var(--spacing-xl);
 }
@@ -1501,7 +1501,7 @@ input:checked + .cookie-slider:before {
 /* FAQ Specific Styles */
 .faq-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(500px, 100%), 1fr));
   gap: var(--spacing-lg);
 }
 
@@ -1639,11 +1639,7 @@ input:checked + .cookie-slider:before {
   body {
     padding: var(--spacing-sm);
   }
-  
-  .header h1 {
-    font-size: 2.5rem;
-  }
-  
+
   .player-section {
     grid-template-columns: 1fr;
     gap: var(--spacing-md);
@@ -1713,42 +1709,30 @@ input:checked + .cookie-slider:before {
 }
 
 @media (max-width: 480px) {
-  .header h1 {
-    font-size: 2rem;
-  }
-  
   .tools-section, .faq-section {
     padding: var(--spacing-lg) var(--spacing-sm);
   }
-  
+
   .tool-card, .glass-card {
     padding: var(--spacing-md);
   }
-  
+
   .tool-icon {
     min-width: 50px;
     height: 50px;
     font-size: 1.3rem;
   }
-  
+
   .tool-content h3 {
     font-size: 1.1rem;
   }
-  
-  .eq-slider {
-    min-width: 35px;
-  }
-  
-  .eq-slider input[type="range"] {
-    height: 100px;
-  }
-  
+
   .volume-section {
     flex-direction: column;
     gap: var(--spacing-sm);
     text-align: center;
   }
-  
+
   .volume-label {
     min-width: auto;
   }
@@ -2053,7 +2037,7 @@ body,
               box-shadow var(--transition-normal);
 }
 
-/* Responsive adjustments for controls */
+/* Responsive adjustments for controls (consolidated with main 768px block above) */
 @media (max-width: 768px) {
   .control-btn {
     width: 32px;
@@ -2110,6 +2094,44 @@ body,
   .eq-slider-label {
     font-size: 0.55rem;
   }
+
+  /* Visualizer: reduce height on tablets */
+  .visualizer-canvas {
+    height: 200px;
+  }
+
+  /* Visualizer controls: stack vertically */
+  .visualizer-controls {
+    position: relative;
+    top: auto;
+    left: auto;
+    flex-wrap: wrap;
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .visualizer-select {
+    font-size: 0.8rem;
+    padding: 5px 8px;
+  }
+
+  /* Home icon: smaller on mobile */
+  .home-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 1.1rem;
+    top: 10px;
+    left: 10px;
+  }
+
+  /* Cookie modal: prevent full-width overflow */
+  .cookie-modal {
+    max-width: calc(100vw - 20px);
+  }
+
+  /* Playlist delete: always visible on touch */
+  .playlist-item-delete {
+    opacity: 0.6;
+  }
 }
 
 @media (max-width: 480px) {
@@ -2129,8 +2151,15 @@ body,
     font-size: 1.25rem;
   }
 
+  /* EQ sliders: flex-based sizing instead of fixed min-width */
+  .eq-sliders {
+    gap: 2px;
+    padding: var(--spacing-sm);
+  }
+
   .eq-slider {
-    min-width: 32px;
+    min-width: 0;
+    flex: 1;
   }
 
   .eq-slider input[type="range"] {
@@ -2141,5 +2170,37 @@ body,
   .eq-slider input[type="range"]::-webkit-slider-thumb {
     width: 10px;
     height: 10px;
+  }
+
+  .gain-indicator {
+    font-size: 0.55rem;
+    padding: 1px 2px;
+  }
+
+  /* Visualizer: compact on phones */
+  .visualizer-canvas {
+    height: 150px;
+  }
+
+  /* Track info: tighter layout */
+  .track-title {
+    max-width: 50%;
+  }
+
+  /* Home icon: even smaller */
+  .home-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 1rem;
+  }
+
+  /* Tools/FAQ sections: tighter padding */
+  .tools-header h2, .faq-header h2 {
+    font-size: 1.5rem;
+  }
+
+  .faq-question {
+    padding: var(--spacing-sm);
+    font-size: 0.85rem;
   }
 }
