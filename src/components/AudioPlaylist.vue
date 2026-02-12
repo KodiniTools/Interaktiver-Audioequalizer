@@ -16,14 +16,14 @@
           :class="{ active: index === audioStore.currentIndex }"
           @click="selectTrack(index)"
         >
-          <SvgIcon name="music" class="playlist-item-icon" />
+          <i class="playlist-item-icon fas fa-music"></i>
           <span class="playlist-item-name" :title="file.name">{{ file.name }}</span>
           <button 
             class="playlist-item-delete"
             @click.stop="removeTrack(index)"
             aria-label="Remove track"
           >
-            <SvgIcon name="times" />
+            <i class="fas fa-times"></i>
           </button>
         </div>
       </div>
@@ -39,7 +39,6 @@
 import { computed } from 'vue'
 import { useAudioStore } from '../stores/audio'
 import { useI18nStore } from '../stores/i18n'
-import SvgIcon from './SvgIcon.vue'
 
 const audioStore = useAudioStore()
 const i18nStore = useI18nStore()
