@@ -1,4 +1,15 @@
 /* ===========================
+   CUSTOM FONT
+   =========================== */
+@font-face {
+  font-family: 'Supreme';
+  src: url('/fonts/Supreme-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ===========================
    MODERN DESIGN SYSTEM WITH CUSTOM COLOR SCHEME
    =========================== */
 :root {
@@ -200,7 +211,7 @@ button:focus-visible,
 }
 
 body {
-  font-family: 'Inter', 'Segoe UI', sans-serif;
+  font-family: 'Supreme', 'Inter', 'Segoe UI', sans-serif;
   background: var(--dark-body-gradient);
   color: var(--text-primary);
   margin: 0;
