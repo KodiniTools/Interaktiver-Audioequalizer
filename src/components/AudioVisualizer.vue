@@ -51,7 +51,7 @@
         id="visualizer" 
         class="visualizer-canvas" 
         aria-label="Audio frequency visualization"
-        style="display: block; width: 100%; height: 300px; background: #000;"
+        style="display: block; width: 100%;"
       ></canvas>
     </div>
   </div>
