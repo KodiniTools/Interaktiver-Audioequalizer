@@ -37,7 +37,7 @@
           @change="handleFileUpload"
         />
         <label for="audioFile" class="file-upload-label">
-          <i class="fas fa-folder-open"></i>
+          <SvgIcon name="folder-open" />
           <span>{{ t('controls.chooseFiles') }}</span>
         </label>
       </div>
@@ -50,7 +50,7 @@
           @click="previousTrack"
           :disabled="!audioStore.hasFiles"
         >
-          <i class="fas fa-backward-step"></i>
+          <SvgIcon name="backward-step" />
         </button>
 
         <button
@@ -61,7 +61,7 @@
           @click="togglePlayPause"
           :disabled="!audioStore.hasFiles"
         >
-          <i :class="audioStore.isPlaying ? 'fas fa-pause' : 'fas fa-play'"></i>
+          <SvgIcon :name="audioStore.isPlaying ? 'pause' : 'play'" />
         </button>
 
         <button
@@ -71,7 +71,7 @@
           @click="nextTrack"
           :disabled="!audioStore.hasFiles"
         >
-          <i class="fas fa-forward-step"></i>
+          <SvgIcon name="forward-step" />
         </button>
 
         <button
@@ -82,7 +82,7 @@
           @click="audioStore.toggleShuffle"
           :disabled="!audioStore.hasFiles"
         >
-          <i class="fas fa-shuffle"></i>
+          <SvgIcon name="shuffle" />
         </button>
 
         <button
@@ -93,7 +93,7 @@
           @click="audioStore.toggleLoop"
           :disabled="!audioStore.hasFiles"
         >
-          <i class="fas fa-repeat"></i>
+          <SvgIcon name="repeat" />
         </button>
 
         <button
@@ -103,12 +103,12 @@
           @click="deleteAllFiles"
           :disabled="!audioStore.hasFiles"
         >
-          <i class="fas fa-trash-can"></i>
+          <SvgIcon name="trash-can" />
         </button>
       </div>
 
       <div class="volume-section">
-        <i class="fas fa-volume-low volume-icon"></i>
+        <SvgIcon name="volume-low" class="volume-icon" />
         <div class="volume-slider">
           <input
             id="volume"
@@ -131,6 +131,7 @@ import { ref, computed, watch, onMounted } from 'vue'
 import { useAudioStore } from '../stores/audio'
 import { useI18nStore } from '../stores/i18n'
 import { useAudioEqualizer } from '../composables/useAudioEqualizer'
+import SvgIcon from './SvgIcon.vue'
 
 const audioStore = useAudioStore()
 const i18nStore = useI18nStore()
