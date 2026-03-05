@@ -156,12 +156,20 @@ export const useI18nStore = defineStore('i18n', () => {
       localStorage.setItem('locale', lang)
       document.documentElement.lang = lang
       translateDataLangElements(lang)
-      window.dispatchEvent(new CustomEvent('language-changed', { detail: { lang } }))
     }
   }
 
   // Initialize
   setLanguage(currentLang.value)
+
+  // Event delegation: catch clicks on SSI-Nav language buttons so Vue stays in sync.
+  const onNavClick = (e) => {
+    const btn = e.target.closest('.global-nav-lang-btn')
+    if (!btn) return
+    const lang = btn.dataset.lang
+    if (lang) setLanguage(lang)
+  }
+  document.addEventListener('click', onNavClick)
 
   return {
     currentLang,
