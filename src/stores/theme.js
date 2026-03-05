@@ -4,11 +4,16 @@ import { ref } from 'vue'
 export const useThemeStore = defineStore('theme', () => {
   const currentTheme = ref(localStorage.getItem('theme') || 'dark')
 
+  let applyingTheme = false
+
   const applyTheme = (theme) => {
+    applyingTheme = true
     currentTheme.value = theme
+    document.documentElement.setAttribute('data-theme', theme)
     document.body.setAttribute('data-theme', theme)
     updateThemeColors(theme)
     localStorage.setItem('theme', theme)
+    applyingTheme = false
   }
 
   const updateThemeColors = (theme) => {
@@ -49,13 +54,20 @@ export const useThemeStore = defineStore('theme', () => {
   // Initialize theme on store creation
   applyTheme(currentTheme.value)
 
-  // Event delegation: catch clicks on SSI-Nav theme toggle button.
-  document.addEventListener('click', (e) => {
-    const btn = e.target.closest('.global-nav-theme-btn')
-    if (!btn) return
-    const theme = btn.dataset.theme
-    if (theme) applyTheme(theme)
+  // Watch for SSI-Nav theme changes on <html> via MutationObserver.
+  // The SSI nav sets data-theme on document.documentElement when toggled.
+  const observer = new MutationObserver((mutations) => {
+    if (applyingTheme) return
+    for (const mutation of mutations) {
+      if (mutation.attributeName === 'data-theme') {
+        const htmlTheme = document.documentElement.getAttribute('data-theme')
+        if (htmlTheme && htmlTheme !== currentTheme.value) {
+          applyTheme(htmlTheme)
+        }
+      }
+    }
   })
+  observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] })
 
   // Listen for system theme changes
   if (window.matchMedia) {
