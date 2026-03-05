@@ -952,10 +952,14 @@ body {
   right: 0;
   bottom: 0;
   z-index: 10000;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   padding: var(--spacing-md);
+}
+
+.cookie-banner.active {
+  display: flex;
 }
 
 .cookie-overlay {

@@ -49,12 +49,12 @@ export const useThemeStore = defineStore('theme', () => {
   // Initialize theme on store creation
   applyTheme(currentTheme.value)
 
-  // Listen for theme changes from global navigation
-  window.addEventListener('theme-changed', (e) => {
-    const theme = e.detail?.theme
-    if (theme && theme !== currentTheme.value) {
-      applyTheme(theme)
-    }
+  // Event delegation: catch clicks on SSI-Nav theme toggle button.
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('.global-nav-theme-btn')
+    if (!btn) return
+    const theme = btn.dataset.theme
+    if (theme) applyTheme(theme)
   })
 
   // Listen for system theme changes
