@@ -30,7 +30,10 @@ export const useThemeStore = defineStore('theme', () => {
       root.style.setProperty('--panel-highlight', 'rgba(201, 152, 77, 0.08)')
       root.style.setProperty('--dark-shadow-color', 'rgba(0, 57, 113, 0.15)')
       root.style.setProperty('--dark-progress-bg', 'rgba(1, 79, 153, 0.12)')
-      root.style.setProperty('--dark-body-gradient', 'linear-gradient(135deg, #F5F4D6 0%, #f9f2d5 100%)')
+      root.style.setProperty(
+        '--dark-body-gradient',
+        'linear-gradient(135deg, #F5F4D6 0%, #f9f2d5 100%)'
+      )
       root.style.setProperty('--dark-btn', '#014f99')
       root.style.setProperty('--dark-btn-hover', '#003971')
       document.body.style.background = 'linear-gradient(135deg, #F5F4D6 0%, #f9f2d5 100%)'
@@ -47,7 +50,8 @@ export const useThemeStore = defineStore('theme', () => {
       root.style.setProperty('--dark-progress-bg', 'rgba(122, 141, 160, 0.2)')
       root.style.setProperty('--dark-btn', '#0E1C32')
       root.style.setProperty('--dark-btn-hover', '#142640')
-      document.body.style.background = 'radial-gradient(1200px 600px at 80% -20%, #0E1C32 0%, transparent 60%), #091428'
+      document.body.style.background =
+        'radial-gradient(1200px 600px at 80% -20%, #0E1C32 0%, transparent 60%), #091428'
     }
   }
 
@@ -81,6 +85,6 @@ export const useThemeStore = defineStore('theme', () => {
 
   return {
     currentTheme,
-    applyTheme
+    applyTheme,
   }
 })

@@ -5,7 +5,7 @@
         <h2>{{ t('tools.title') }}</h2>
         <p class="tools-subtitle">{{ t('tools.subtitle') }}</p>
       </div>
-      
+
       <div class="tools-grid">
         <a href="https://kodinitools.com/modernermusikplayer/" class="tool-card">
           <div class="tool-icon">
@@ -75,7 +75,7 @@
           </div>
         </a>
       </div>
-      
+
       <div class="tools-cta">
         <a href="https://kodinitools.com" class="cta-button">
           <i class="fas fa-tools"></i>
@@ -87,8 +87,8 @@
 </template>
 
 <script setup>
-import { useI18nStore } from '../stores/i18n'
+  import { useI18nStore } from '../stores/i18n'
 
-const i18nStore = useI18nStore()
-const t = i18nStore.t
+  const i18nStore = useI18nStore()
+  const t = i18nStore.t
 </script>
