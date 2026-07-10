@@ -1,5 +1,5 @@
 <template>
-  <div class="glass-card player-section">
+  <div class="player-bar" :class="{ 'is-active': audioStore.hasFiles }">
     <!-- KRITISCH: Audio-Element im DOM! -->
     <audio
       ref="audioElement"
@@ -13,38 +13,27 @@
       @error="handleError"
     ></audio>
 
-    <!-- Progress Bar with Track Info -->
-    <div v-if="audioStore.hasFiles" class="player-progress-section">
-      <div class="track-info">
-        <span class="track-title">{{ currentTrackName }}</span>
-        <span class="track-time"
-          >{{ formatTime(audioStore.currentTime) }} / {{ formatTime(audioStore.duration) }}</span
-        >
-      </div>
-      <div class="progress-bar-container" @click="seekTo">
-        <div class="progress-bar" :style="{ width: progressPercent + '%' }"></div>
-        <div class="progress-thumb" :style="{ left: progressPercent + '%' }"></div>
-      </div>
+    <!-- Full-width seek/progress line at the top of the bar -->
+    <div
+      v-if="audioStore.hasFiles"
+      class="progress-bar-container player-bar-progress"
+      @click="seekTo"
+    >
+      <div class="progress-bar" :style="{ width: progressPercent + '%' }"></div>
+      <div class="progress-thumb" :style="{ left: progressPercent + '%' }"></div>
     </div>
 
-    <div class="player-controls-row">
-      <div class="file-upload">
-        <input
-          id="audioFile"
-          ref="fileInput"
-          type="file"
-          accept="audio/*"
-          multiple
-          aria-label="Choose audio files"
-          @change="handleFileUpload"
-        />
-        <label for="audioFile" class="file-upload-label">
-          <i class="fas fa-folder-open"></i>
-          <span>{{ t('controls.chooseFiles') }}</span>
-        </label>
+    <div class="player-bar-body">
+      <!-- Left: track info -->
+      <div class="pb-track">
+        <span class="track-title">{{ currentTrackName }}</span>
+        <span v-if="audioStore.hasFiles" class="track-time">
+          {{ formatTime(audioStore.currentTime) }} / {{ formatTime(audioStore.duration) }}
+        </span>
       </div>
 
-      <div class="audio-controls">
+      <!-- Center: transport controls -->
+      <div class="pb-transport audio-controls">
         <button
           class="control-btn"
           :title="t('controls.backward')"
@@ -97,6 +86,41 @@
         >
           <i class="fas fa-repeat"></i>
         </button>
+      </div>
+
+      <!-- Right: upload, volume, delete -->
+      <div class="pb-meta">
+        <div class="file-upload">
+          <input
+            id="audioFile"
+            ref="fileInput"
+            type="file"
+            accept="audio/*"
+            multiple
+            aria-label="Choose audio files"
+            @change="handleFileUpload"
+          />
+          <label for="audioFile" class="file-upload-label">
+            <i class="fas fa-folder-open"></i>
+            <span>{{ t('controls.chooseFiles') }}</span>
+          </label>
+        </div>
+
+        <div class="volume-section">
+          <i class="fas fa-volume-low volume-icon"></i>
+          <div class="volume-slider">
+            <input
+              id="volume"
+              v-model="volume"
+              type="range"
+              min="0"
+              max="100"
+              aria-label="Volume control"
+              @input="updateVolume"
+            />
+          </div>
+          <div class="volume-display">{{ volume }}%</div>
+        </div>
 
         <button
           class="control-btn danger"
@@ -107,22 +131,6 @@
         >
           <i class="fas fa-trash-can"></i>
         </button>
-      </div>
-
-      <div class="volume-section">
-        <i class="fas fa-volume-low volume-icon"></i>
-        <div class="volume-slider">
-          <input
-            id="volume"
-            v-model="volume"
-            type="range"
-            min="0"
-            max="100"
-            aria-label="Volume control"
-            @input="updateVolume"
-          />
-        </div>
-        <div class="volume-display">{{ volume }}%</div>
       </div>
     </div>
   </div>
