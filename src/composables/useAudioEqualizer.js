@@ -30,6 +30,11 @@ const frequencies = [
   16000, // Air (High-Shelf)
 ]
 
+// ✅ SINGLETON: Current EQ gain per band (source of truth for UI + presets).
+// Kept outside the audio pipeline so values set before an AudioContext exists
+// are re-applied once the filters are created (see connectAudioElement).
+const currentGains = ref(new Array(frequencies.length).fill(0))
+
 export function useAudioEqualizer() {
   // Now returns the shared singleton state
 
@@ -161,6 +166,11 @@ export function useAudioEqualizer() {
       // Connect to destination
       gainNode.value.connect(audioContext.value.destination)
       console.log('✅ Connected to Audio Output')
+
+      // Re-apply any EQ gains (e.g. from a preset) chosen before the pipeline existed
+      filters.value.forEach((filter, index) => {
+        filter.gain.value = currentGains.value[index] ?? 0
+      })
 
       console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━')
       console.log('✅ Professional Audio Pipeline Complete')
@@ -309,25 +319,36 @@ export function useAudioEqualizer() {
    * @returns {number} - The actual gain value set (clamped)
    */
   const setEQBand = (bandIndex, gainDB) => {
-    if (!filters.value || filters.value.length === 0) {
-      console.warn('⚠️ Filters not initialized')
-      return 0
-    }
-
-    if (bandIndex < 0 || bandIndex >= filters.value.length) {
+    if (bandIndex < 0 || bandIndex >= frequencies.length) {
       console.error('❌ Invalid band index:', bandIndex)
       return 0
     }
 
     // Clamp gain to -40 to +40 dB
     const clampedGain = Math.max(-40, Math.min(40, gainDB))
-    filters.value[bandIndex].gain.value = clampedGain
 
-    console.log(
-      `🎛️ Band ${bandIndex} (${filters.value[bandIndex].frequency.value}Hz): ${clampedGain}dB`
-    )
+    // Update the source-of-truth gain (drives the UI even before audio is loaded)
+    currentGains.value[bandIndex] = clampedGain
+
+    // Apply to the live filter if the audio pipeline already exists
+    if (filters.value && filters.value[bandIndex]) {
+      filters.value[bandIndex].gain.value = clampedGain
+    }
 
     return clampedGain
+  }
+
+  /**
+   * Apply a full preset (array of 15 gain values)
+   */
+  const applyPreset = (values) => {
+    if (!Array.isArray(values)) {
+      console.warn('⚠️ applyPreset expects an array of gains')
+      return
+    }
+    for (let i = 0; i < frequencies.length; i++) {
+      setEQBand(i, values[i] ?? 0)
+    }
   }
 
   /**
@@ -335,14 +356,15 @@ export function useAudioEqualizer() {
    * BACKWARD COMPATIBILITY: Named resetEqualizer for AudioEqualizer.vue
    */
   const resetEqualizer = () => {
-    if (!filters.value || filters.value.length === 0) {
-      console.warn('⚠️ Filters not initialized')
-      return
+    for (let i = 0; i < currentGains.value.length; i++) {
+      currentGains.value[i] = 0
     }
 
-    filters.value.forEach((filter) => {
-      filter.gain.value = 0
-    })
+    if (filters.value && filters.value.length) {
+      filters.value.forEach((filter) => {
+        filter.gain.value = 0
+      })
+    }
     console.log('🎛️ All EQ bands reset to 0dB')
   }
 
@@ -414,6 +436,7 @@ export function useAudioEqualizer() {
     isInitialized,
     filters,
     frequencies, // IMPORTANT: Export for AudioEqualizer.vue
+    currentGains, // Source-of-truth gains for the UI + presets
 
     // Methods
     initAudioContext,
@@ -424,6 +447,7 @@ export function useAudioEqualizer() {
     stop,
     setVolume,
     setEQBand,
+    applyPreset, // Apply a full 15-band preset
     resetEQ,
     resetEqualizer, // IMPORTANT: Export for AudioEqualizer.vue
     getFrequencyData,

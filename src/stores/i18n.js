@@ -24,6 +24,15 @@ const translations = {
     equalizer: {
       title: '15-Band-Equalizer',
       reset: 'Zurücksetzen',
+      presets: {
+        choose: 'Preset wählen …',
+        factory: 'Vorlagen',
+        custom: 'Eigene Presets',
+        save: 'Speichern',
+        delete: 'Löschen',
+        savePrompt: 'Name für das Preset:',
+        deleteConfirm: 'Dieses Preset löschen?',
+      },
     },
     playlist: {
       title: 'Wiedergabeliste',
@@ -85,6 +94,15 @@ const translations = {
     equalizer: {
       title: '15-Band Equalizer',
       reset: 'Reset',
+      presets: {
+        choose: 'Choose preset …',
+        factory: 'Presets',
+        custom: 'Custom presets',
+        save: 'Save',
+        delete: 'Delete',
+        savePrompt: 'Name for the preset:',
+        deleteConfirm: 'Delete this preset?',
+      },
     },
     playlist: {
       title: 'Playlist',
