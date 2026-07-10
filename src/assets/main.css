@@ -703,6 +703,44 @@ body {
   font-size: 0.8rem;
 }
 
+/* Mute toggle button (speaker icon) */
+.volume-icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-silver);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+}
+
+.volume-icon-btn:hover {
+  color: var(--color-gold);
+  background: rgba(201, 152, 77, 0.12);
+}
+
+.volume-icon-btn.muted {
+  color: var(--danger-color);
+}
+
+body[data-theme='light'] .volume-icon-btn {
+  color: #014f99;
+}
+
+body[data-theme='light'] .volume-icon-btn:hover {
+  color: #c9984d;
+}
+
+body[data-theme='light'] .volume-icon-btn.muted {
+  color: #a35555;
+}
+
 .volume-label {
   color: var(--color-silver);
   font-weight: 500;

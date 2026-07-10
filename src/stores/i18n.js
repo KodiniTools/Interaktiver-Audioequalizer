@@ -17,6 +17,8 @@ const translations = {
       shuffle: 'Zufallswiedergabe',
       loop: 'Wiederholen',
       deleteAll: 'Alle Dateien löschen',
+      mute: 'Stummschalten',
+      unmute: 'Ton einschalten',
     },
     visualizer: {
       title: 'Audio-Visualisierer',
@@ -87,6 +89,8 @@ const translations = {
       shuffle: 'Shuffle',
       loop: 'Loop',
       deleteAll: 'Delete All Files',
+      mute: 'Mute',
+      unmute: 'Unmute',
     },
     visualizer: {
       title: 'Audio Visualizer',

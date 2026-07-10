@@ -25,8 +25,29 @@ export const useAudioStore = defineStore('audio', () => {
   }
 
   const removeTrack = (index) => {
+    if (index < 0 || index >= audioFiles.value.length) return
+
+    const wasCurrent = index === currentIndex.value
     audioFiles.value.splice(index, 1)
-    if (index === currentIndex.value && audioFiles.value.length > 0) {
+
+    if (audioFiles.value.length === 0) {
+      // Nothing left to play
+      currentIndex.value = 0
+      isPlaying.value = false
+      isPaused.value = false
+      currentTime.value = 0
+      duration.value = 0
+      return
+    }
+
+    if (index < currentIndex.value) {
+      // Removed a track before the current one → shift index so the
+      // currently playing track keeps playing uninterrupted.
+      currentIndex.value = currentIndex.value - 1
+    } else if (wasCurrent) {
+      // Removed the current track → clamp to the last valid index.
+      // currentTrack now points at a different file, which the player
+      // watches to load and (if it was playing) continue playback.
       currentIndex.value = Math.min(currentIndex.value, audioFiles.value.length - 1)
     }
   }
