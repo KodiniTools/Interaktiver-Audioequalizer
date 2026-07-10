@@ -1,11 +1,22 @@
 <template>
-  <div class="glass-card playlist-card">
-    <div class="playlist-header">
-      <h2 class="playlist-title">{{ t('playlist.title') }}</h2>
-      <span class="playlist-count"> {{ audioStore.trackCount }} {{ t('playlist.tracks') }} </span>
-    </div>
+  <div class="glass-card playlist-card" :class="{ collapsed: isCollapsed }">
+    <button
+      class="playlist-header playlist-toggle"
+      :aria-expanded="!isCollapsed"
+      aria-controls="playlistItems"
+      @click="isCollapsed = !isCollapsed"
+    >
+      <span class="playlist-title-group">
+        <i class="fas fa-list-ul playlist-title-icon"></i>
+        <h2 class="playlist-title">{{ t('playlist.title') }}</h2>
+      </span>
+      <span class="playlist-header-meta">
+        <span class="playlist-count"> {{ audioStore.trackCount }} {{ t('playlist.tracks') }} </span>
+        <i class="fas fa-chevron-down playlist-chevron" :class="{ rotated: isCollapsed }"></i>
+      </span>
+    </button>
 
-    <div class="playlist-container">
+    <div v-show="!isCollapsed" class="playlist-container">
       <div v-if="audioStore.hasFiles" id="playlistItems">
         <div
           v-for="(file, index) in audioStore.audioFiles"
@@ -34,7 +45,7 @@
 </template>
 
 <script setup>
-  import { computed } from 'vue'
+  import { computed, ref } from 'vue'
   import { useAudioStore } from '../stores/audio'
   import { useI18nStore } from '../stores/i18n'
 
@@ -42,6 +53,8 @@
   const i18nStore = useI18nStore()
   const t = i18nStore.t
   const currentLang = computed(() => i18nStore.currentLang)
+
+  const isCollapsed = ref(false)
 
   const selectTrack = (index) => {
     audioStore.setCurrentIndex(index)
@@ -55,6 +68,48 @@
 </script>
 
 <style scoped>
+  /* Collapsible header acts as a full-width toggle button */
+  .playlist-toggle {
+    width: 100%;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font: inherit;
+    color: inherit;
+    text-align: left;
+  }
+
+  .playlist-title-group {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+  }
+
+  .playlist-title-icon {
+    color: var(--accent-color);
+    font-size: 0.85rem;
+  }
+
+  .playlist-header-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+  }
+
+  .playlist-chevron {
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    transition: transform var(--transition-normal);
+  }
+
+  .playlist-chevron.rotated {
+    transform: rotate(-90deg);
+  }
+
+  .playlist-card.collapsed {
+    padding-bottom: var(--spacing-sm);
+  }
+
   .playlist-item {
     position: relative;
     display: flex;

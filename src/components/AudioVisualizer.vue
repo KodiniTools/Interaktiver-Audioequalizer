@@ -2,14 +2,6 @@
   <div class="glass-card">
     <div class="equalizer-header">
       <h2 class="equalizer-title">{{ t('visualizer.title') }}</h2>
-      <div
-        v-if="debugMode"
-        class="debug-info"
-        style="font-size: 11px; color: #888; margin-top: 5px"
-      >
-        Canvas: {{ canvasReady ? '✅' : '❌' }} | Analyser: {{ analyserReady ? '✅' : '❌' }} |
-        Running: {{ isRunning ? '✅' : '❌' }} | Size: {{ canvasWidth }}x{{ canvasHeight }}
-      </div>
     </div>
 
     <div class="visualizer-container">
@@ -33,15 +25,6 @@
           <option value="monochrome">Monochrome</option>
           <option value="vintage">Vintage</option>
         </select>
-
-        <button
-          v-if="debugMode"
-          class="visualizer-select"
-          style="padding: 5px 10px; cursor: pointer"
-          @click="forceRestart"
-        >
-          🔄 Restart
-        </button>
       </div>
 
       <canvas
@@ -74,9 +57,8 @@
   const selectedVisualizationType = ref('spectrum')
   const selectedColorScheme = ref('rainbow')
   const checkInterval = ref(null)
-  const debugMode = ref(true) // Set to false to hide debug info
 
-  // Debug state
+  // Init/readiness state
   const canvasReady = ref(false)
   const analyserReady = ref(false)
   const canvasWidth = ref(0)
@@ -190,18 +172,6 @@
     setColorScheme(selectedColorScheme.value)
   }
 
-  const forceRestart = () => {
-    console.log('🔄 Force restart requested')
-    stop()
-    canvasReady.value = false
-    analyserReady.value = false
-    initAttempts = 0
-
-    setTimeout(() => {
-      tryInitialize()
-    }, 100)
-  }
-
   // Watch for analyser changes
   watch(analyser, (newAnalyser) => {
     console.log('🔄 Analyser watch triggered')
@@ -236,13 +206,6 @@
 </script>
 
 <style scoped>
-  .debug-info {
-    padding: 5px;
-    background: rgba(0, 0, 0, 0.3);
-    border-radius: 4px;
-    font-family: monospace;
-  }
-
   .visualizer-canvas {
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 4px;

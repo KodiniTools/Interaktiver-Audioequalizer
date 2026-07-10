@@ -278,22 +278,29 @@ body {
 .container {
   max-width: 1400px;
   margin: 0 auto;
+}
+
+/* App-Shell: stacked hero + bento grid */
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+/* Visualizer hero spans the full width at the top */
+.visualizer-hero {
+  width: 100%;
+}
+
+/* Bento grid: main modules + collapsible side panel */
+.bento-grid {
   display: grid;
-  grid-template-columns: 1fr 300px;
-  gap: var(--spacing-xl);
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: var(--spacing-lg);
   align-items: start;
 }
 
-.main-content {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-lg);
-}
-
-.sidebar {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-lg);
+.bento-side {
   position: sticky;
   top: var(--spacing-lg);
 }
@@ -372,6 +379,123 @@ body {
   gap: var(--spacing-md);
   flex-wrap: wrap;
   justify-content: space-between;
+}
+
+/* ===========================
+   PERSISTENT PLAYER BAR (sticky bottom)
+   =========================== */
+.player-bar {
+  position: sticky;
+  bottom: 0;
+  z-index: 900;
+  max-width: 1400px;
+  margin: var(--spacing-lg) auto 0;
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--border-radius-lg);
+  box-shadow: 0 -6px 24px rgba(9, 20, 40, 0.35);
+  overflow: hidden;
+}
+
+.player-bar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+  opacity: 0.4;
+}
+
+.player-bar-progress {
+  border-radius: 0;
+  height: 5px;
+}
+
+.player-bar-progress:hover {
+  height: 7px;
+}
+
+.player-bar-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-sm) var(--spacing-md);
+}
+
+.pb-track {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.pb-track .track-title {
+  max-width: 100%;
+}
+
+.pb-transport {
+  justify-content: center;
+  flex-wrap: nowrap;
+}
+
+.pb-meta {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--spacing-sm);
+  flex-wrap: nowrap;
+}
+
+/* Player bar: stacked layout on tablets & phones */
+@media (max-width: 768px) {
+  .player-bar {
+    margin-top: var(--spacing-md);
+    border-radius: var(--border-radius);
+  }
+
+  .player-bar-body {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--spacing-sm);
+  }
+
+  .pb-track {
+    flex: 1 1 100%;
+    align-items: center;
+    text-align: center;
+  }
+
+  .pb-transport {
+    flex: 0 1 auto;
+  }
+
+  .pb-meta {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+
+  /* Keep volume horizontal inside the bar even on small screens */
+  .pb-meta .volume-section {
+    flex-direction: row;
+    width: auto;
+    min-width: 90px;
+  }
+}
+
+@media (max-width: 480px) {
+  .pb-meta .volume-section {
+    min-width: 70px;
+  }
+
+  .player-bar-body {
+    padding: var(--spacing-sm);
+  }
 }
 
 /* Progress Bar */
@@ -808,7 +932,7 @@ body {
    =========================== */
 .visualizer-container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   margin-bottom: var(--spacing-lg);
   position: relative;
 }
@@ -824,6 +948,11 @@ body {
 
 .visualizer-canvas:hover {
   border-color: var(--accent-color);
+}
+
+/* Taller canvas when the visualizer is used as the hero element */
+.visualizer-hero .visualizer-canvas {
+  height: 360px;
 }
 
 .visualizer-info {
@@ -1250,15 +1379,13 @@ body {
 /* ===========================
    RESPONSIVE DESIGN
    =========================== */
-@media (max-width: 1200px) {
-  .container {
+@media (max-width: 1024px) {
+  .bento-grid {
     grid-template-columns: 1fr;
-    gap: var(--spacing-lg);
   }
-  
-  .sidebar {
+
+  .bento-side {
     position: static;
-    order: -1;
   }
 }
 
@@ -1395,6 +1522,16 @@ body[data-theme="light"] .glass-card:hover {
 }
 
 body[data-theme="light"] .glass-card::before {
+  background: linear-gradient(90deg, transparent, #c9984d, transparent);
+}
+
+body[data-theme="light"] .player-bar {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(1, 79, 153, 0.15);
+  box-shadow: 0 -4px 20px rgba(0, 57, 113, 0.15);
+}
+
+body[data-theme="light"] .player-bar::before {
   background: linear-gradient(90deg, transparent, #c9984d, transparent);
 }
 
