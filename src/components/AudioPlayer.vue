@@ -107,7 +107,16 @@
         </div>
 
         <div class="volume-section">
-          <i class="fas fa-volume-low volume-icon"></i>
+          <button
+            class="volume-icon-btn"
+            :class="{ muted: isMuted }"
+            :title="isMuted ? t('controls.unmute') : t('controls.mute')"
+            :aria-label="isMuted ? t('controls.unmute') : t('controls.mute')"
+            :aria-pressed="isMuted"
+            @click="toggleMute"
+          >
+            <i :class="volumeIconClass"></i>
+          </button>
           <div class="volume-slider">
             <input
               id="volume"
@@ -154,6 +163,8 @@
   const volume = ref(audioStore.volume)
   const initialized = ref(false)
   const currentObjectURL = ref(null)
+  const isMuted = ref(false)
+  const volumeBeforeMute = ref(audioStore.volume)
 
   // Computed properties for progress bar
   const currentTrackName = computed(() => {
@@ -280,12 +291,11 @@
       console.log('✅ AudioContext initialized and audio element connected')
     }
 
-    // Add files to store
+    // Add files to store. The currentTrack watcher loads the first track when
+    // the playlist goes from empty → populated; appending more files while a
+    // track is already loaded does not interrupt playback.
     audioStore.addFiles(files)
     console.log(`📋 Total tracks: ${audioStore.trackCount}`)
-
-    // Load the first track immediately
-    await loadCurrentTrack()
   }
 
   // Load current track
@@ -461,20 +471,63 @@
   const updateVolume = () => {
     const newVolume = parseInt(volume.value)
     setVolume(newVolume)
+    // Dragging the slider takes over from mute state
+    isMuted.value = newVolume === 0
   }
 
-  // Watch for track changes (single entry point for next/prev/playlist clicks)
+  // Volume icon reflects mute state and level
+  const volumeIconClass = computed(() => {
+    if (isMuted.value || volume.value == 0) return 'fas fa-volume-xmark'
+    if (volume.value < 50) return 'fas fa-volume-low'
+    return 'fas fa-volume-high'
+  })
+
+  const toggleMute = () => {
+    if (isMuted.value) {
+      // Unmute → restore the previous level (fall back to 50% if it was 0)
+      isMuted.value = false
+      const restored = volumeBeforeMute.value > 0 ? volumeBeforeMute.value : 50
+      volume.value = restored
+      setVolume(restored)
+    } else {
+      // Mute → remember the current level and drop to 0
+      volumeBeforeMute.value = parseInt(volume.value) || 0
+      isMuted.value = true
+      volume.value = 0
+      setVolume(0)
+    }
+  }
+
+  // Watch the actual current track (single entry point for upload, next/prev,
+  // playlist selection AND removal). Watching the track identity — rather than
+  // the index — also catches the case where a track is removed and the index
+  // stays numerically the same but now points at a different file.
   watch(
-    () => audioStore.currentIndex,
-    async (newIndex, oldIndex) => {
-      if (newIndex !== oldIndex) {
-        console.log('📋 Track index changed from', oldIndex, 'to', newIndex)
-        const wasPlaying = audioStore.isPlaying
-        await loadCurrentTrack()
-        if (wasPlaying) {
-          await new Promise((resolve) => setTimeout(resolve, 300))
-          await play()
+    () => audioStore.currentTrack,
+    async (newTrack, oldTrack) => {
+      if (newTrack === oldTrack) return
+
+      // No track left (e.g. the playing track was removed and the list is empty)
+      if (!newTrack) {
+        console.log('⏹️ No current track — stopping playback')
+        stop()
+        audioStore.setPlaying(false)
+        if (currentObjectURL.value) {
+          URL.revokeObjectURL(currentObjectURL.value)
+          currentObjectURL.value = null
         }
+        if (audioElement.value) {
+          audioElement.value.src = ''
+          audioElement.value.load()
+        }
+        return
+      }
+
+      const wasPlaying = audioStore.isPlaying
+      await loadCurrentTrack()
+      if (wasPlaying) {
+        await new Promise((resolve) => setTimeout(resolve, 300))
+        await play()
       }
     }
   )
