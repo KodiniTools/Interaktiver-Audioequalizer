@@ -1109,6 +1109,49 @@ body[data-theme='light'] .volume-icon-btn.muted {
   opacity: 1;
 }
 
+/* ---------------------------------------------
+   Sign-based slider glow: bright green = boost,
+   red = cut. Gives instant visual feedback.
+   --------------------------------------------- */
+.eq-slider.is-positive input[type="range"] {
+  background: linear-gradient(to top, var(--color-slate), rgba(92, 230, 140, 0.55), var(--color-slate));
+  box-shadow: 0 0 10px rgba(92, 230, 140, 0.35);
+}
+
+.eq-slider.is-negative input[type="range"] {
+  background: linear-gradient(to top, var(--color-slate), rgba(255, 92, 92, 0.55), var(--color-slate));
+  box-shadow: 0 0 10px rgba(255, 92, 92, 0.35);
+}
+
+.eq-slider.is-positive input[type="range"]::-webkit-slider-thumb {
+  background: #5ce68c;
+  box-shadow: 0 0 8px 2px rgba(92, 230, 140, 0.75);
+}
+
+.eq-slider.is-positive input[type="range"]::-moz-range-thumb {
+  background: #5ce68c;
+  box-shadow: 0 0 8px 2px rgba(92, 230, 140, 0.75);
+}
+
+.eq-slider.is-negative input[type="range"]::-webkit-slider-thumb {
+  background: #ff5c5c;
+  box-shadow: 0 0 8px 2px rgba(255, 92, 92, 0.75);
+}
+
+.eq-slider.is-negative input[type="range"]::-moz-range-thumb {
+  background: #ff5c5c;
+  box-shadow: 0 0 8px 2px rgba(255, 92, 92, 0.75);
+}
+
+/* dB readout matches the sign colour */
+.eq-slider.is-positive .gain-indicator {
+  color: #5ce68c;
+}
+
+.eq-slider.is-negative .gain-indicator {
+  color: #ff5c5c;
+}
+
 /* ===========================
    TOOLS & FAQ SECTIONS
    =========================== */

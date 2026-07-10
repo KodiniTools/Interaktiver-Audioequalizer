@@ -45,7 +45,12 @@
     </div>
 
     <div class="eq-sliders">
-      <div v-for="(freq, index) in frequencies" :key="freq" class="eq-slider">
+      <div
+        v-for="(freq, index) in frequencies"
+        :key="freq"
+        class="eq-slider"
+        :class="bandClass(index)"
+      >
         <div :id="`gain${freq}`" class="gain-indicator">{{ currentGains[index] }} dB</div>
         <label class="eq-slider-label">{{ formatFrequency(freq) }}</label>
         <input
@@ -87,6 +92,16 @@
    */
   const presetLabel = (preset) => {
     return i18nStore.currentLang === 'de' ? preset.name.de : preset.name.en
+  }
+
+  /**
+   * Sign-based class so the slider glows green (boost) or red (cut)
+   */
+  const bandClass = (index) => {
+    const value = currentGains.value[index]
+    if (value > 0) return 'is-positive'
+    if (value < 0) return 'is-negative'
+    return 'is-neutral'
   }
 
   /**
