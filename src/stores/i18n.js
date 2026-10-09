@@ -22,6 +22,8 @@ const translations = {
     },
     visualizer: {
       title: 'Audio-Visualisierer',
+      empty: 'Keine Audiodatei geladen',
+      ariaLabel: 'Frequenzspektrum-Visualisierung',
     },
     equalizer: {
       title: '15-Band-Equalizer',
@@ -94,6 +96,8 @@ const translations = {
     },
     visualizer: {
       title: 'Audio Visualizer',
+      empty: 'No audio file loaded',
+      ariaLabel: 'Frequency spectrum visualization',
     },
     equalizer: {
       title: '15-Band Equalizer',

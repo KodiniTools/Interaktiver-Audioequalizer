@@ -95,7 +95,7 @@
   }
 
   /**
-   * Sign-based class so the slider glows green (boost) or red (cut)
+   * Sign-based class: boost (--eq-boost) or cut (--eq-cut) colouring
    */
   const bandClass = (index) => {
     const value = currentGains.value[index]
@@ -167,40 +167,34 @@
   .eq-actions {
     display: flex;
     align-items: center;
-    gap: var(--spacing-sm);
+    gap: 6px;
     flex-wrap: wrap;
   }
 
+  /* Equalizer 19 .preset-select */
   .preset-select {
-    background: var(--color-slate);
-    color: var(--text-primary);
-    border: 1px solid var(--glass-border);
-    border-radius: var(--border-radius);
-    padding: 6px 10px;
+    padding: 5px 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
     font-family: inherit;
-    font-size: 0.8rem;
-    font-weight: 500;
+    font-size: 11px;
     cursor: pointer;
-    transition: all var(--transition-normal);
+    background: var(--secondary-bg);
+    color: var(--text-secondary);
+    transition: all 0.2s ease;
+    min-width: 0;
     max-width: 180px;
   }
 
-  .preset-select:hover {
-    border-color: var(--accent-color);
+  .preset-select:hover,
+  .preset-select:focus {
+    border-color: var(--accent-primary);
   }
 
-  .danger-btn {
-    color: var(--danger-color);
-  }
-
-  .danger-btn:hover {
-    background: var(--base-red);
-    color: #fff;
-  }
-
-  :global(body[data-theme='light']) .preset-select {
-    background: #f8e1a9;
-    color: #003971;
-    border-color: rgba(1, 79, 153, 0.18);
+  /* Hover colour hints at the action (Equalizer 19 save/reset buttons) */
+  .reset-btn:not(.danger-btn):hover:not(:disabled) {
+    background: var(--accent-primary);
+    border-color: var(--accent-primary);
+    color: var(--on-accent);
   }
 </style>

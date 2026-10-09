@@ -1,85 +1,57 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
+/**
+ * Theme handling as in Equalizer 19 (src/composables/useTheme.js):
+ * the theme is only the `data-theme` attribute; every colour comes from the
+ * design tokens in assets/main.css (:root = dark, [data-theme='light'] = light).
+ * No inline custom properties: they would override the token stylesheet.
+ */
+const isTheme = (value) => value === 'dark' || value === 'light'
+
+function detectSystemTheme() {
+  return window.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+}
+
 export const useThemeStore = defineStore('theme', () => {
-  const currentTheme = ref(localStorage.getItem('theme') || 'dark')
+  const stored = localStorage.getItem('theme')
+  const currentTheme = ref(isTheme(stored) ? stored : detectSystemTheme())
 
   let applyingTheme = false
 
   const applyTheme = (theme) => {
+    if (!isTheme(theme)) return
     applyingTheme = true
     currentTheme.value = theme
     document.documentElement.setAttribute('data-theme', theme)
     document.body.setAttribute('data-theme', theme)
-    updateThemeColors(theme)
     localStorage.setItem('theme', theme)
     applyingTheme = false
   }
 
-  const updateThemeColors = (theme) => {
-    const root = document.documentElement
-
-    if (theme === 'light') {
-      // Light theme with blue/gold color scheme
-      root.style.setProperty('--primary-bg', '#F5F4D6')
-      root.style.setProperty('--card-bg', '#ffffff')
-      root.style.setProperty('--text-primary', '#003971')
-      root.style.setProperty('--text-secondary', '#014f99')
-      root.style.setProperty('--glass-bg', 'rgba(255, 255, 255, 0.88)')
-      root.style.setProperty('--glass-border', 'rgba(1, 79, 153, 0.18)')
-      root.style.setProperty('--panel-highlight', 'rgba(201, 152, 77, 0.08)')
-      root.style.setProperty('--dark-shadow-color', 'rgba(0, 57, 113, 0.15)')
-      root.style.setProperty('--dark-progress-bg', 'rgba(1, 79, 153, 0.12)')
-      root.style.setProperty(
-        '--dark-body-gradient',
-        'linear-gradient(135deg, #F5F4D6 0%, #f9f2d5 100%)'
-      )
-      root.style.setProperty('--dark-btn', '#014f99')
-      root.style.setProperty('--dark-btn-hover', '#003971')
-      document.body.style.background = 'linear-gradient(135deg, #F5F4D6 0%, #f9f2d5 100%)'
-    } else {
-      // Dark theme with navy/gold color scheme
-      root.style.setProperty('--primary-bg', '#091428')
-      root.style.setProperty('--card-bg', '#142640')
-      root.style.setProperty('--text-primary', '#f9f2d5')
-      root.style.setProperty('--text-secondary', '#7A8DA0')
-      root.style.setProperty('--glass-bg', 'rgba(1, 79, 153, 0.08)')
-      root.style.setProperty('--glass-border', 'rgba(1, 79, 153, 0.2)')
-      root.style.setProperty('--panel-highlight', 'rgba(201, 152, 77, 0.05)')
-      root.style.setProperty('--dark-shadow-color', 'rgba(9, 20, 40, 0.6)')
-      root.style.setProperty('--dark-progress-bg', 'rgba(122, 141, 160, 0.2)')
-      root.style.setProperty('--dark-btn', '#0E1C32')
-      root.style.setProperty('--dark-btn-hover', '#142640')
-      document.body.style.background =
-        'radial-gradient(1200px 600px at 80% -20%, #0E1C32 0%, transparent 60%), #091428'
-    }
-  }
-
-  // Initialize theme on store creation
   applyTheme(currentTheme.value)
 
-  // Watch for SSI-Nav theme changes on <html> via MutationObserver.
-  // The SSI nav sets data-theme on document.documentElement when toggled.
+  // The SSI nav sets data-theme on <html> when toggled
   const observer = new MutationObserver((mutations) => {
     if (applyingTheme) return
     for (const mutation of mutations) {
       if (mutation.attributeName === 'data-theme') {
         const htmlTheme = document.documentElement.getAttribute('data-theme')
-        if (htmlTheme && htmlTheme !== currentTheme.value) {
-          applyTheme(htmlTheme)
-        }
+        if (htmlTheme && htmlTheme !== currentTheme.value) applyTheme(htmlTheme)
       }
     }
   })
   observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] })
 
-  // Listen for system theme changes
+  // The SSI nav also dispatches a theme-changed event (Equalizer 19 listens to it)
+  window.addEventListener('theme-changed', (e) => {
+    const theme = e.detail?.theme
+    if (isTheme(theme) && theme !== currentTheme.value) applyTheme(theme)
+  })
+
   if (window.matchMedia) {
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
-    mediaQuery.addEventListener('change', (e) => {
-      if (!localStorage.getItem('theme')) {
-        applyTheme(e.matches ? 'dark' : 'light')
-      }
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+      if (!localStorage.getItem('theme')) applyTheme(e.matches ? 'dark' : 'light')
     })
   }
 
