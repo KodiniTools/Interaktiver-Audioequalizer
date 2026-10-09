@@ -9,7 +9,9 @@
     "lint": "eslint . --fix",
     "lint:check": "eslint .",
     "format": "prettier --write \"src/**/*.{vue,js}\"",
-    "format:check": "prettier --check \"src/**/*.{vue,js}\""
+    "format:check": "prettier --check \"src/**/*.{vue,js}\"",
+    "deploy": "node deploy.js",
+    "deploy:build": "node deploy.js build"
   },
   "dependencies": {
     "pinia": "^2.1.7",

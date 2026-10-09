@@ -25,6 +25,15 @@ export default [
     },
   },
   {
+    // Node scripts outside the browser bundle
+    files: ['deploy.js'],
+    languageOptions: {
+      globals: {
+        ...globals.node,
+      },
+    },
+  },
+  {
     ignores: ['dist/**', 'node_modules/**'],
   },
 ]
