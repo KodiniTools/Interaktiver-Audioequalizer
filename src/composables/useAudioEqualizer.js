@@ -69,7 +69,7 @@ export function useAudioEqualizer() {
 
       // Create analyser
       analyser.value = audioContext.value.createAnalyser()
-      analyser.value.fftSize = 4096
+      analyser.value.fftSize = 2048
       analyser.value.smoothingTimeConstant = 0.8
       console.log('✅ AnalyserNode created')
       console.log('📊 FFT Size:', analyser.value.fftSize)

@@ -73,6 +73,7 @@
     width: 100%;
     background: transparent;
     border: none;
+    padding: 0;
     cursor: pointer;
     font: inherit;
     color: inherit;
@@ -82,24 +83,24 @@
   .playlist-title-group {
     display: flex;
     align-items: center;
-    gap: var(--spacing-sm);
+    gap: 8px;
   }
 
   .playlist-title-icon {
-    color: var(--accent-color);
-    font-size: 0.85rem;
+    color: var(--accent-primary);
+    font-size: 13px;
   }
 
   .playlist-header-meta {
     display: flex;
     align-items: center;
-    gap: var(--spacing-sm);
+    gap: 8px;
   }
 
   .playlist-chevron {
-    color: var(--text-secondary);
-    font-size: 0.75rem;
-    transition: transform var(--transition-normal);
+    color: var(--text-muted);
+    font-size: 12px;
+    transition: transform 0.2s ease;
   }
 
   .playlist-chevron.rotated {
@@ -107,72 +108,31 @@
   }
 
   .playlist-card.collapsed {
-    padding-bottom: var(--spacing-sm);
+    padding-bottom: 12px;
   }
 
-  .playlist-item {
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-sm);
-    padding: var(--spacing-sm) var(--spacing-md);
-    border-bottom: 1px solid var(--glass-border);
-    cursor: pointer;
-    transition: all var(--transition-normal);
-  }
-
-  .playlist-item:hover {
-    background: rgba(110, 168, 254, 0.1);
-    transform: translateX(5px);
+  .playlist-card.collapsed .playlist-header {
+    margin-bottom: 0;
   }
 
   .playlist-item:hover .playlist-item-delete {
     opacity: 1;
   }
 
-  .playlist-item.active {
-    background: linear-gradient(90deg, rgba(110, 168, 254, 0.2), rgba(34, 197, 94, 0.1));
-    border-left: 3px solid var(--accent-color);
-  }
-
-  .playlist-item-icon {
-    color: var(--accent-color);
-    width: 20px;
-    transition: color var(--transition-normal);
-  }
-
-  .playlist-item.active .playlist-item-icon {
-    color: var(--base-green);
-  }
-
-  .playlist-item-name {
-    flex: 1;
-    font-size: 0.95rem;
-    color: var(--text-primary);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
   .playlist-item-delete {
     opacity: 0;
     background: transparent;
     border: none;
-    color: var(--danger-color);
+    color: var(--error);
     cursor: pointer;
     padding: 4px;
-    transition: all var(--transition-normal);
+    border-radius: 6px;
+    transition:
+      opacity 0.2s ease,
+      background-color 0.2s ease;
   }
 
   .playlist-item-delete:hover {
-    color: var(--base-red);
-    transform: scale(1.2);
-  }
-
-  .playlist-empty {
-    padding: var(--spacing-xl);
-    text-align: center;
-    color: var(--text-secondary);
-    font-style: italic;
+    background: color-mix(in srgb, var(--error) 14%, transparent);
   }
 </style>
