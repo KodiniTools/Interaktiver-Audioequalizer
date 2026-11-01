@@ -1,5 +1,22 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
+import { applyLocaleHead, resolveInitialLocale } from '../utils/localeSeo'
+
+export const SITE_URL = 'https://kodinitools.com/audioequalizer/'
+
+/** Titel und Beschreibung je Sprache (Deutsch steht zusätzlich statisch in index.html). */
+export const PAGE_META = {
+  de: {
+    title: 'Audio Equalizer online – 15-Band-EQ kostenlos | KodiniTools',
+    description:
+      'Kostenloser 15-Band-Equalizer im Browser: Frequenzen in Echtzeit anpassen, Presets, Visualisierung und Playlist. Ohne Installation und Registrierung.',
+  },
+  en: {
+    title: 'Online Audio Equalizer – Free 15-Band EQ | KodiniTools',
+    description:
+      'Free 15-band equalizer in your browser: adjust frequencies in real time, with presets, visualization and playlist. No installation, no sign-up.',
+  },
+}
 
 const translations = {
   de: {
@@ -153,8 +170,12 @@ const translations = {
 }
 
 export const useI18nStore = defineStore('i18n', () => {
+  // ?lang=de|en (hreflang-Ziel) hat Vorrang vor der gespeicherten Sprache, sonst Deutsch.
   const currentLang = ref(
-    localStorage.getItem('locale') || localStorage.getItem('language') || 'de'
+    resolveInitialLocale(
+      window.location.search,
+      localStorage.getItem('locale') || localStorage.getItem('language')
+    )
   )
 
   const t = (key) => {
@@ -182,7 +203,7 @@ export const useI18nStore = defineStore('i18n', () => {
     if (translations[lang]) {
       currentLang.value = lang
       localStorage.setItem('locale', lang)
-      document.documentElement.lang = lang
+      applyLocaleHead(SITE_URL, lang, PAGE_META[lang])
       translateDataLangElements(lang)
     }
   }
