@@ -1,22 +1,9 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { applyLocaleHead, resolveInitialLocale } from '../utils/localeSeo'
+import { PAGE_META, SITE_URL } from '../config/pageMeta'
 
-export const SITE_URL = 'https://kodinitools.com/audioequalizer/'
-
-/** Titel und Beschreibung je Sprache (Deutsch steht zusätzlich statisch in index.html). */
-export const PAGE_META = {
-  de: {
-    title: 'Audio Equalizer online – 15-Band-EQ kostenlos | KodiniTools',
-    description:
-      'Kostenloser 15-Band-Equalizer im Browser: Frequenzen in Echtzeit anpassen, Presets, Visualisierung und Playlist. Ohne Installation und Registrierung.',
-  },
-  en: {
-    title: 'Online Audio Equalizer – Free 15-Band EQ | KodiniTools',
-    description:
-      'Free 15-band equalizer in your browser: adjust frequencies in real time, with presets, visualization and playlist. No installation, no sign-up.',
-  },
-}
+export { PAGE_META, SITE_URL }
 
 const translations = {
   de: {
