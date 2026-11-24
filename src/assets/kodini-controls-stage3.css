@@ -98,6 +98,11 @@
   background: var(--landing-gold);
 }
 
+/* Beschriftung «Audiodateien wählen» bleibt einzeilig. */
+.kodini-equalizer .file-upload-label {
+  white-space: nowrap;
+}
+
 @media (min-width: 1100px) {
   .kodini-equalizer .file-upload-label span {
     display: inline;
