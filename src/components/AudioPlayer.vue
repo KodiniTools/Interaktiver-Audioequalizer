@@ -97,12 +97,12 @@
             type="file"
             accept="audio/*"
             multiple
-            aria-label="Choose audio files"
+            :aria-label="t('controls.chooseFiles')"
             @change="handleFileUpload"
           />
-          <label for="audioFile" class="file-upload-label">
-            <i class="fas fa-folder-open"></i>
-            <span>{{ t('controls.chooseFiles') }}</span>
+          <!-- Nur das Ordnersymbol; der Name steht als aria-label am Input und als Tooltip. -->
+          <label for="audioFile" class="file-upload-label" :title="t('controls.chooseFiles')">
+            <i class="fas fa-folder-open" aria-hidden="true"></i>
           </label>
         </div>
 
