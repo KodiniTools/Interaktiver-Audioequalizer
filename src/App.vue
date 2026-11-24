@@ -1,5 +1,6 @@
 <template>
   <div :data-theme="currentTheme" class="app-wrapper kodini-equalizer">
+    <PageNavigation />
     <main>
       <LandingPage />
 
@@ -19,7 +20,7 @@
       </section>
 
       <ToolsSection />
-      <FAQSection />
+      <FAQSection id="faq" />
     </main>
 
     <AudioPlayer />
@@ -30,6 +31,7 @@
   import { computed } from 'vue'
   import { useThemeStore } from './stores/theme'
   import LandingPage from './components/LandingPage.vue'
+  import PageNavigation from './components/PageNavigation.vue'
   import AppHeader from './components/AppHeader.vue'
   import AudioVisualizer from './components/AudioVisualizer.vue'
   import AudioEqualizer from './components/AudioEqualizer.vue'

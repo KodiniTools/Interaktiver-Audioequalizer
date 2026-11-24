@@ -1,0 +1,156 @@
+/* Shared navigation colours sit on the body so the SSI partial can use them. */
+body.audio-equalizer-page {
+  --eq-nav-surface: #111d33;
+  --eq-nav-raised: #182741;
+  --eq-nav-text: #f4f7ff;
+  --eq-nav-border: #344762;
+  --eq-nav-focus: #69dce8;
+  --eq-nav-shadow: 0 14px 32px #030b185c;
+  --eq-nav-gold: #8f6320;
+}
+
+html[data-theme='light'] body.audio-equalizer-page {
+  --eq-nav-surface: #fff;
+  --eq-nav-raised: #f0eee8;
+  --eq-nav-text: #12213a;
+  --eq-nav-border: #ccd3dd;
+  --eq-nav-focus: #086d83;
+  --eq-nav-shadow: 0 14px 32px #12213a26;
+}
+
+/* The shared partial also has its own theme selectors and fixed colours. */
+html body.audio-equalizer-page .global-nav {
+  --nav-bg: var(--eq-nav-surface);
+  --nav-text: var(--eq-nav-text);
+  --nav-text-hover: var(--eq-nav-text);
+  --nav-bg-hover: var(--eq-nav-raised);
+  --nav-border: var(--eq-nav-border);
+  --nav-shadow: transparent;
+  --dropdown-bg: var(--eq-nav-surface);
+  --dropdown-border: var(--eq-nav-border);
+  --dropdown-shadow: var(--eq-nav-shadow);
+  --accent-color: var(--eq-nav-gold);
+  background: var(--nav-bg) !important;
+  border-bottom-color: var(--nav-border) !important;
+  box-shadow: none !important;
+}
+
+html
+  body.audio-equalizer-page
+  .global-nav
+  :is(
+    .global-nav-brand,
+    .global-nav-link,
+    .global-nav-dropdown-toggle,
+    .global-nav-dropdown-item,
+    .global-nav-theme-toggle,
+    .global-nav-lang-btn
+  ) {
+  color: var(--eq-nav-text) !important;
+}
+
+html body.audio-equalizer-page .global-nav .global-nav-dropdown-menu {
+  background: var(--dropdown-bg) !important;
+  border-color: var(--dropdown-border) !important;
+  box-shadow: var(--dropdown-shadow) !important;
+}
+
+html body.audio-equalizer-page .global-nav .global-nav-lang-btn.active {
+  background: var(--eq-nav-gold) !important;
+  color: #fff !important;
+}
+
+html body.audio-equalizer-page .global-nav :is(a, button):focus-visible,
+.eq-page-link:focus-visible {
+  outline: 2px solid var(--eq-nav-focus);
+  outline-offset: 2px;
+}
+
+.eq-page-header {
+  background: color-mix(in srgb, var(--eq-nav-surface) 96%, var(--eq-nav-focus));
+  border-block: 1px solid var(--eq-nav-border);
+}
+
+.eq-page-header-inner,
+.eq-page-nav {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.eq-page-header-inner {
+  min-height: 56px;
+  justify-content: space-between;
+  padding-block: 7px;
+}
+
+.eq-page-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 5px clamp(9px, 1.5vw, 16px);
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--eq-nav-text);
+  font: inherit;
+  font-size: 0.95rem;
+  text-decoration: none;
+}
+
+.eq-page-link:hover {
+  border-color: var(--eq-nav-border);
+  background: var(--eq-nav-raised);
+}
+
+.eq-local-theme {
+  border-color: var(--eq-nav-border);
+  cursor: pointer;
+}
+
+.eq-local-theme[aria-pressed='true'] {
+  border-color: var(--eq-nav-gold);
+  background: var(--eq-nav-gold);
+  color: #fff;
+}
+
+body.audio-equalizer-page:has(.global-nav .global-nav-theme-toggle) .eq-local-theme {
+  display: none;
+}
+
+.kodini-equalizer :is(#uebersicht, #equalizer, #faq) {
+  scroll-margin-top: calc(var(--external-nav-height, 72px) + 16px);
+}
+
+.kodini-equalizer .eq-workspace-header {
+  display: grid;
+  gap: 4px;
+  margin-bottom: 0;
+  padding: 14px 18px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-panel);
+  background: var(--secondary-bg);
+}
+
+.kodini-equalizer .eq-workspace-header h2 {
+  background: none;
+  color: var(--text-primary);
+  -webkit-text-fill-color: currentColor;
+  font-size: clamp(1.1rem, 2.1vw, 1.45rem);
+}
+
+.kodini-equalizer .eq-workspace-header .subtitle {
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  html body.audio-equalizer-page .global-nav .global-nav-links {
+    background: var(--nav-bg) !important;
+    border-top-color: var(--nav-border);
+  }
+
+  html body.audio-equalizer-page .global-nav .global-nav-dropdown-menu {
+    background: var(--eq-nav-raised) !important;
+  }
+}
