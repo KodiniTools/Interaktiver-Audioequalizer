@@ -74,6 +74,40 @@
             <i class="fas fa-arrow-right"></i>
           </div>
         </a>
+
+        <a href="https://kodinitools.com/visualizer/" class="tool-card">
+          <div class="tool-icon">
+            <i class="fas fa-wave-square"></i>
+          </div>
+          <div class="tool-content">
+            <h3>{{ t('tools.audioVisualizer.title') }}</h3>
+            <p>{{ t('tools.audioVisualizer.desc') }}</p>
+            <div class="tool-features">
+              <span class="feature-tag">{{ t('tools.audioVisualizer.feature1') }}</span>
+              <span class="feature-tag">{{ t('tools.audioVisualizer.feature2') }}</span>
+            </div>
+          </div>
+          <div class="tool-arrow">
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </a>
+
+        <a href="https://kodinitools.com/audio-cutter/" class="tool-card">
+          <div class="tool-icon">
+            <i class="fas fa-scissors"></i>
+          </div>
+          <div class="tool-content">
+            <h3>{{ t('tools.audioCutter.title') }}</h3>
+            <p>{{ t('tools.audioCutter.desc') }}</p>
+            <div class="tool-features">
+              <span class="feature-tag">{{ t('tools.audioCutter.feature1') }}</span>
+              <span class="feature-tag">{{ t('tools.audioCutter.feature2') }}</span>
+            </div>
+          </div>
+          <div class="tool-arrow">
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </a>
       </div>
 
       <div class="tools-cta">
