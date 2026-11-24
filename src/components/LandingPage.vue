@@ -37,11 +37,12 @@
   import { computed } from 'vue'
   import heroImage from '../assets/equalizer-hero.webp'
   import { useI18nStore } from '../stores/i18n'
-  import { LANDING_COPY, EQUALIZER_ANCHOR_ID } from '../config/landingCopy'
+  import { LANDING_COPY } from '../config/landingCopy'
   import { OVERVIEW_ANCHOR_ID } from '../config/pageNavigation'
+  import { pageHref, workspacePath } from '../utils/pageRoutes'
 
   const i18n = useI18nStore()
   const t = i18n.t
   const copy = computed(() => LANDING_COPY[i18n.currentLang] ?? LANDING_COPY.de)
-  const ctaHref = `#${EQUALIZER_ANCHOR_ID}`
+  const ctaHref = computed(() => pageHref(workspacePath, i18n.currentLang))
 </script>

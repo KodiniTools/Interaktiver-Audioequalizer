@@ -1,10 +1,15 @@
 <template>
   <div :data-theme="currentTheme" class="app-wrapper kodini-equalizer">
-    <PageNavigation />
+    <PageNavigation :workspace="workspace" />
     <main>
-      <LandingPage />
+      <template v-if="!workspace">
+        <LandingPage />
+        <ToolsSection />
+        <FAQSection id="faq" />
+      </template>
 
       <section
+        v-else
         id="equalizer"
         class="container app-shell"
         tabindex="-1"
@@ -18,17 +23,15 @@
           <AudioPlaylist class="bento-side" />
         </div>
       </section>
-
-      <ToolsSection />
-      <FAQSection id="faq" />
     </main>
 
-    <AudioPlayer />
+    <AudioPlayer v-if="workspace" />
   </div>
 </template>
 
 <script setup>
   import { computed } from 'vue'
+  import { isWorkspacePath } from './utils/pageRoutes'
   import { useThemeStore } from './stores/theme'
   import LandingPage from './components/LandingPage.vue'
   import PageNavigation from './components/PageNavigation.vue'
@@ -40,6 +43,7 @@
   import FAQSection from './components/FAQSection.vue'
   import AudioPlayer from './components/AudioPlayer.vue'
 
+  const workspace = isWorkspacePath(window.location.pathname)
   const themeStore = useThemeStore()
   const currentTheme = computed(() => themeStore.currentTheme)
 </script>

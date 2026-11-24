@@ -3,7 +3,7 @@
  * Reine Daten ohne Vue-Abhängigkeit, damit sie per `node --test` prüfbar sind.
  */
 
-/** Ziel-Anker des Startbuttons: id der bestehenden Equalizer-Section in App.vue. */
+/** id der Equalizer-Section in App.vue (Werkzeugseite, siehe utils/pageRoutes.js). */
 export const EQUALIZER_ANCHOR_ID = 'equalizer'
 
 export const LANDING_COPY = {
