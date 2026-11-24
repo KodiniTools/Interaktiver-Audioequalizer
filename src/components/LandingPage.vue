@@ -1,5 +1,5 @@
 <template>
-  <section class="eq-landing" aria-labelledby="eq-landing-title">
+  <section :id="OVERVIEW_ANCHOR_ID" class="eq-landing" aria-labelledby="eq-landing-title">
     <div class="eq-landing-hero">
       <div class="eq-landing-wrap eq-landing-grid">
         <div>
@@ -38,6 +38,7 @@
   import heroImage from '../assets/equalizer-hero.webp'
   import { useI18nStore } from '../stores/i18n'
   import { LANDING_COPY, EQUALIZER_ANCHOR_ID } from '../config/landingCopy'
+  import { OVERVIEW_ANCHOR_ID } from '../config/pageNavigation'
 
   const i18n = useI18nStore()
   const t = i18n.t
