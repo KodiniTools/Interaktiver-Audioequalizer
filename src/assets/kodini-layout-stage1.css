@@ -33,6 +33,11 @@
   --landing-glow: rgba(84, 160, 194, 0.16);
 }
 
+/* Überschriften in normaler Schriftstärke, auf allen Seiten des Equalizers. */
+.kodini-equalizer :is(h1, h2, h3, h4, h5, h6) {
+  font-weight: 400;
+}
+
 .eq-landing-wrap,
 .kodini-equalizer .app-shell {
   width: min(1160px, calc(100% - 2 * var(--layout-gutter)));
@@ -54,7 +59,6 @@
 .eq-landing h1 {
   margin: 0;
   font-size: clamp(2.45rem, 5.2vw, 4.5rem);
-  font-weight: 700;
   line-height: 1.04;
   letter-spacing: -0.045em;
   overflow-wrap: anywhere;

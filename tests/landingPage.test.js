@@ -80,3 +80,24 @@ test('Dunkelgoldener Startbutton mit weisser Schrift erfüllt WCAG AA', () => {
   assert.ok(contrast(fill, '#ffffff') >= 4.5, `fill ${contrast(fill, '#ffffff')}`)
   assert.ok(contrast(hover, '#ffffff') >= 4.5, `hover ${contrast(hover, '#ffffff')}`)
 })
+
+test('Überschriften sind nicht fett', () => {
+  const stage1 = read('src/assets/kodini-layout-stage1.css')
+  assert.match(
+    stage1,
+    /\.kodini-equalizer :is\(h1, h2, h3, h4, h5, h6\)\s*\{\s*font-weight:\s*400;\s*\}/
+  )
+  // Keine Regel der Design-Stylesheets darf eine Überschrift wieder fett setzen.
+  for (const file of [
+    'kodini-layout-stage1.css',
+    'kodini-header-stage2.css',
+    'kodini-controls-stage3.css',
+  ]) {
+    const css = read(`src/assets/${file}`).replace(/\/\*[\s\S]*?\*\//g, '')
+    for (const [, selector, body] of css.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
+      if (!/\bh[1-6]\b/.test(selector)) continue
+      const weight = body.match(/font-weight:\s*([^;]+);/)?.[1].trim()
+      assert.ok(!weight || weight === '400' || weight === 'normal', `${file}: ${selector.trim()}`)
+    }
+  }
+})
