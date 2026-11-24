@@ -1,0 +1,163 @@
+/* Equalizer controls use the existing theme and component states. */
+.kodini-equalizer {
+  --control-bg: var(--secondary-bg);
+  --control-hover: color-mix(in srgb, var(--card-bg) 90%, var(--landing-focus));
+  --control-border: #657c9a;
+  --control-fill: var(--landing-fill);
+  --control-fill-hover: #764f18;
+  --control-danger: #fca5a5;
+  --control-thumb: #eef6ff;
+}
+
+.kodini-equalizer[data-theme='light'] {
+  --control-border: #748397;
+  --control-danger: #a21d29;
+  --control-thumb: #fff;
+}
+
+.kodini-equalizer
+  :is(.equalizer-section, .player-bar)
+  :is(.preset-select, .reset-btn, .control-btn, .volume-icon-btn) {
+  min-height: 40px;
+  border: 1px solid var(--control-border);
+  border-radius: 8px;
+  background: var(--control-bg);
+  color: var(--text-primary);
+}
+
+.kodini-equalizer .eq-actions {
+  gap: 8px;
+}
+
+.kodini-equalizer .eq-actions .preset-select {
+  max-width: min(100%, 15rem);
+  padding-inline: 10px;
+  font-size: 0.875rem;
+}
+
+.kodini-equalizer :is(.control-btn, .volume-icon-btn) {
+  min-width: 40px;
+}
+
+.kodini-equalizer
+  :is(.preset-select, .reset-btn, .control-btn, .volume-icon-btn):hover:not(:disabled) {
+  background: var(--control-hover);
+  color: var(--text-primary);
+}
+
+.kodini-equalizer .player-bar .file-upload-label,
+.kodini-equalizer .player-bar .control-btn.primary {
+  min-height: 40px;
+  border-color: var(--control-fill);
+  border-radius: 8px;
+  background: var(--control-fill);
+  color: #fff;
+}
+
+.kodini-equalizer .player-bar .file-upload-label:hover,
+.kodini-equalizer .player-bar .control-btn.primary:hover:not(:disabled) {
+  border-color: var(--control-fill-hover);
+  background: var(--control-fill-hover);
+  color: #fff;
+}
+
+.kodini-equalizer .player-bar .control-btn.active,
+.kodini-equalizer .player-bar .volume-icon-btn.muted {
+  border-color: var(--landing-focus);
+  background: var(--control-hover);
+  color: var(--landing-focus);
+}
+
+.kodini-equalizer
+  :is(.equalizer-section .danger-btn, .player-bar .control-btn.danger, .playlist-item-delete) {
+  color: var(--control-danger);
+}
+
+.kodini-equalizer :is(.equalizer-section, .player-bar) :is(button, select):disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.kodini-equalizer
+  :is(.equalizer-section, .player-bar, .playlist-card)
+  :is(button, select, input[type='range']):focus-visible,
+.kodini-equalizer .file-upload input:focus-visible + .file-upload-label {
+  outline: 2px solid var(--landing-focus);
+  outline-offset: 3px;
+}
+
+.kodini-equalizer .playlist-item-delete:focus-visible {
+  opacity: 1;
+}
+
+.kodini-equalizer .player-bar-progress {
+  background: var(--control-border);
+}
+
+.kodini-equalizer .player-bar-progress :is(.progress-bar, .progress-thumb) {
+  background: var(--landing-gold);
+}
+
+@media (min-width: 1100px) {
+  .kodini-equalizer .file-upload-label span {
+    display: inline;
+  }
+}
+
+@media (hover: none) {
+  .kodini-equalizer .playlist-item-delete {
+    opacity: 1;
+  }
+}
+
+/* Keep the vertical range geometry. Only the grips and rails are restyled. */
+.kodini-equalizer .eq-slider {
+  --band-grip: var(--control-border);
+}
+
+.kodini-equalizer .eq-slider.is-positive {
+  --band-grip: var(--landing-gold);
+}
+
+.kodini-equalizer .eq-slider.is-negative {
+  --band-grip: var(--landing-focus);
+}
+
+.kodini-equalizer .eq-slider input[type='range'],
+.kodini-equalizer .volume-slider input[type='range'] {
+  background-color: var(--control-border);
+}
+
+.kodini-equalizer .eq-slider input[type='range']::-moz-range-track {
+  background: var(--control-border);
+}
+
+.kodini-equalizer .eq-slider input[type='range']::-webkit-slider-thumb {
+  border-color: var(--band-grip);
+  border-radius: 4px;
+  background: var(--control-thumb);
+}
+
+.kodini-equalizer .eq-slider input[type='range']::-moz-range-thumb {
+  border-color: var(--band-grip);
+  border-radius: 4px;
+  background: var(--control-thumb);
+}
+
+.kodini-equalizer .volume-slider input[type='range']::-webkit-slider-thumb {
+  background: var(--control-fill);
+  border-color: var(--control-thumb);
+}
+
+.kodini-equalizer .volume-slider input[type='range']::-moz-range-thumb {
+  background: var(--control-fill);
+  border-color: var(--control-thumb);
+}
+
+@media (max-width: 768px) {
+  .kodini-equalizer .eq-actions .preset-select,
+  .kodini-equalizer .player-bar .file-upload-label,
+  .kodini-equalizer :is(.reset-btn, .control-btn, .volume-icon-btn) {
+    min-height: 44px;
+  }
+}

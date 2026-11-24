@@ -1,6 +1,6 @@
 <template>
   <header class="header eq-workspace-header">
-    <h2 id="equalizer-title">{{ t('header.title') }}</h2>
+    <h1 id="equalizer-title">{{ t('header.title') }}</h1>
     <p class="subtitle">{{ t('header.subtitle') }}</p>
   </header>
 </template>

@@ -33,17 +33,21 @@ test('Landingpage-Texte existieren auf Deutsch und Englisch mit gleicher Struktu
   assert.equal(LANDING_COPY.en.cta, 'Try the equalizer')
 })
 
-test('Startbutton zielt auf die bestehende Equalizer-Section', () => {
+test('Startbutton führt zur Werkzeugseite, die die bestehenden Komponenten einbindet', () => {
   const app = read('src/App.vue')
   const landing = read('src/components/LandingPage.vue')
-  assert.match(app, new RegExp(`<section[^>]*\\bid="${EQUALIZER_ANCHOR_ID}"`))
   assert.match(landing, /class="eq-landing-cta"\s+:href="ctaHref"/)
-  assert.match(landing, /const ctaHref = `#\$\{EQUALIZER_ANCHOR_ID\}`/)
-  // Bestehende Komponenten bleiben in der Equalizer-Section eingebunden.
+  assert.match(
+    landing,
+    /const ctaHref = computed\(\(\) => pageHref\(workspacePath, i18n\.currentLang\)\)/
+  )
+  // Die Equalizer-Section erscheint nur auf der Werkzeugseite (v-else zum Landing-Zweig).
+  assert.match(app, new RegExp(`<section\\s+v-else\\s+id="${EQUALIZER_ANCHOR_ID}"`))
   for (const c of ['AppHeader', 'AudioVisualizer', 'AudioEqualizer', 'AudioPlaylist']) {
     assert.match(app, new RegExp(`<${c}\\b`), c)
   }
-  assert.match(app, /<AudioPlayer\s*\/>/)
+  // Der Player (und damit die Audiositzung) existiert nur auf der Werkzeugseite.
+  assert.match(app, /<AudioPlayer v-if="workspace"\s*\/>/)
 })
 
 test('Illustration ist eine lokale WebP-Datei', () => {
