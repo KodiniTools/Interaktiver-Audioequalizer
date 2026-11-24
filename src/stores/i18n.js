@@ -74,6 +74,18 @@ const translations = {
         feature1: 'Multi-Format',
         feature2: 'Stapelverarbeitung',
       },
+      audioVisualizer: {
+        title: 'Audio Visualizer',
+        desc: 'Musikvideos für TikTok, Reels und YouTube mit Visualisierung, Text und Bild erstellen',
+        feature1: 'MP4-Export',
+        feature2: 'Text & Bild',
+      },
+      audioCutter: {
+        title: 'Audio-Schneider',
+        desc: 'Audiodateien millisekundengenau direkt im Browser schneiden, ohne Upload',
+        feature1: 'Fade-in/-out',
+        feature2: 'WAV, MP3, FLAC',
+      },
     },
     faq: {
       title: 'Häufig gestellte Fragen (FAQ)',
@@ -147,6 +159,18 @@ const translations = {
         desc: 'Convert audio files between different formats',
         feature1: 'Multi-Format',
         feature2: 'Batch Processing',
+      },
+      audioVisualizer: {
+        title: 'Audio Visualizer',
+        desc: 'Create music videos for TikTok, Reels and YouTube with visualization, text and images',
+        feature1: 'MP4 Export',
+        feature2: 'Text & Images',
+      },
+      audioCutter: {
+        title: 'Audio Cutter',
+        desc: 'Cut audio files with millisecond accuracy right in your browser, no upload',
+        feature1: 'Fade In/Out',
+        feature2: 'WAV, MP3, FLAC',
       },
     },
     faq: {
