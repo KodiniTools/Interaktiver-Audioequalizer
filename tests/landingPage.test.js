@@ -90,7 +90,11 @@ test('Typografie: ausschliesslich Supreme Regular', () => {
   // Supreme steht im Schrift-Stack an erster Stelle und die Regular-Datei ist eingebunden.
   const main = read('src/assets/main.css')
   assert.match(main, /--font-sans:\s*'Supreme'/)
-  assert.match(main, /url\('\/fonts\/Supreme-Regular\.woff2'\)[^}]*font-weight:\s*400;/)
+  assert.match(main, /url\('\.\/fonts\/Supreme-Regular\.woff2'\)[^}]*font-weight:\s*400;/)
+  // Die Datei liegt im Projekt (wird von Vite gebündelt) und ist ein gültiges WOFF2.
+  const font = readFileSync(new URL('../src/assets/fonts/Supreme-Regular.woff2', import.meta.url))
+  assert.equal(font.subarray(0, 4).toString('ascii'), 'wOF2')
+  assert.ok(font.length > 10_000, `Schriftdatei ${font.length} Bytes`)
   // Die Design-Stylesheets setzen selbst weder eine andere Schrift noch ein anderes Gewicht.
   for (const file of [
     'kodini-layout-stage1.css',
