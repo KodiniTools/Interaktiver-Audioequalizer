@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <h1>{{ t('header.title') }}</h1>
+    <h2 id="equalizer-title">{{ t('header.title') }}</h2>
     <p class="subtitle">{{ t('header.subtitle') }}</p>
   </div>
 </template>

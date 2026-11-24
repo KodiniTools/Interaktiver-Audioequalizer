@@ -1,27 +1,27 @@
 <template>
-  <div :data-theme="currentTheme" class="app-wrapper">
-    <!-- Header -->
-    <AppHeader />
+  <div :data-theme="currentTheme" class="app-wrapper kodini-equalizer">
+    <main>
+      <LandingPage />
 
-    <!-- Main Content: App-Shell layout -->
-    <main class="container app-shell">
-      <!-- Visualizer as hero element -->
-      <AudioVisualizer class="visualizer-hero" />
+      <section
+        id="equalizer"
+        class="container app-shell"
+        tabindex="-1"
+        aria-labelledby="equalizer-title"
+      >
+        <AppHeader />
+        <AudioVisualizer class="visualizer-hero" />
 
-      <!-- Bento grid: Equalizer + collapsible Playlist -->
-      <div class="bento-grid">
-        <AudioEqualizer class="bento-main" />
-        <AudioPlaylist class="bento-side" />
-      </div>
+        <div class="bento-grid">
+          <AudioEqualizer class="bento-main" />
+          <AudioPlaylist class="bento-side" />
+        </div>
+      </section>
+
+      <ToolsSection />
+      <FAQSection />
     </main>
 
-    <!-- Tools Section -->
-    <ToolsSection />
-
-    <!-- FAQ Section -->
-    <FAQSection />
-
-    <!-- Persistent player bar (sticky bottom) -->
     <AudioPlayer />
   </div>
 </template>
@@ -29,6 +29,7 @@
 <script setup>
   import { computed } from 'vue'
   import { useThemeStore } from './stores/theme'
+  import LandingPage from './components/LandingPage.vue'
   import AppHeader from './components/AppHeader.vue'
   import AudioVisualizer from './components/AudioVisualizer.vue'
   import AudioEqualizer from './components/AudioEqualizer.vue'
@@ -40,12 +41,3 @@
   const themeStore = useThemeStore()
   const currentTheme = computed(() => themeStore.currentTheme)
 </script>
-
-<style>
-  /* Global app styles will be in main.css */
-  .app-wrapper {
-    min-height: 100vh;
-    /* Breathing room so content is never hidden behind the sticky player bar */
-    padding-bottom: 2rem;
-  }
-</style>
