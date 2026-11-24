@@ -99,7 +99,7 @@ export function useVisualizer() {
 
     if (dataArray.length === 0) {
       ctx.fillStyle = colors.textMuted
-      ctx.font = '14px sans-serif'
+      ctx.font = "400 14px 'Supreme', sans-serif"
       ctx.textAlign = 'center'
       ctx.fillText(emptyText, el.width / 2, el.height / 2)
       return

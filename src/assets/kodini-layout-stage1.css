@@ -33,6 +33,18 @@
   --landing-glow: rgba(84, 160, 194, 0.16);
 }
 
+/*
+ * Typografie: ausschliesslich Supreme Regular, auf allen Seiten des Equalizers.
+ * !important ist hier Absicht: die Regel muss alle Gewichte (600/700) und die Mono-Schrift
+ * aus main.css und den Komponenten-Styles übersteuern. Ausgenommen sind nur die
+ * Font-Awesome-Icons (<i class="fas …">), die ihre eigene Icon-Schrift brauchen.
+ */
+.kodini-equalizer,
+.kodini-equalizer :not(i, [class*='fa-']) {
+  font-family: var(--font-sans) !important;
+  font-weight: 400 !important;
+}
+
 .eq-landing-wrap,
 .kodini-equalizer .app-shell {
   width: min(1160px, calc(100% - 2 * var(--layout-gutter)));
@@ -54,7 +66,6 @@
 .eq-landing h1 {
   margin: 0;
   font-size: clamp(2.45rem, 5.2vw, 4.5rem);
-  font-weight: 700;
   line-height: 1.04;
   letter-spacing: -0.045em;
   overflow-wrap: anywhere;
@@ -79,7 +90,6 @@
   border-radius: 9px;
   background: var(--landing-fill);
   color: #fff;
-  font-weight: 700;
   text-decoration: none;
 }
 
