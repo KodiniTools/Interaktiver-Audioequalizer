@@ -1,0 +1,117 @@
+/* Workspace panels and track presentation for the /app page. */
+.eq-workspace {
+  --workspace-padding: clamp(12px, 2vw, 22px);
+  --workspace-surface: linear-gradient(150deg, var(--secondary-bg), var(--card-bg));
+}
+
+.eq-workspace .app-shell {
+  margin-block: clamp(24px, 4vw, 48px);
+}
+
+.eq-workspace .eq-spectrum,
+.eq-workspace :is(.equalizer-section, .playlist-card) {
+  padding: var(--workspace-padding);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  background: var(--workspace-surface);
+}
+
+.eq-workspace :is(.eq-spectrum h2, .equalizer-title, .playlist-title) {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+}
+
+.eq-workspace .eq-spectrum h2 {
+  margin-bottom: 12px;
+}
+
+.eq-workspace .eq-spectrum .visualization {
+  padding: 0;
+  overflow: hidden;
+  border-radius: 9px;
+}
+
+.eq-workspace .visualizer-canvas {
+  height: clamp(140px, 21vw, 200px);
+}
+
+.eq-workspace .bento-grid {
+  grid-template-columns: minmax(0, 1fr) minmax(250px, 28%);
+}
+
+.eq-workspace .equalizer-header {
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.eq-workspace .eq-sliders {
+  min-height: 0;
+  padding: 14px 9px;
+  border-radius: 9px;
+  scrollbar-color: var(--control-border) var(--secondary-bg);
+}
+
+.eq-workspace .eq-slider {
+  min-width: 40px;
+  padding-top: 24px;
+  gap: 8px;
+}
+
+.eq-workspace .gain-indicator,
+.eq-workspace .eq-slider-label {
+  color: var(--text-secondary);
+  font-size: 0.6875rem;
+}
+
+.eq-workspace .eq-slider.is-positive .gain-indicator {
+  color: var(--landing-gold);
+}
+
+.eq-workspace .eq-slider.is-negative .gain-indicator {
+  color: var(--landing-focus);
+}
+
+.eq-workspace .playlist-card {
+  min-height: 0;
+}
+
+.eq-workspace .playlist-toggle {
+  min-height: 40px;
+  flex-wrap: wrap;
+}
+
+.eq-workspace .playlist-count {
+  border-color: var(--border-color);
+  background: var(--secondary-bg);
+  color: var(--text-secondary);
+}
+
+.eq-workspace .playlist-empty {
+  padding-block: 24px;
+  color: var(--text-secondary);
+}
+
+.eq-workspace .playlist-item:hover {
+  background: var(--control-hover);
+}
+
+.eq-workspace .playlist-item.active {
+  box-shadow: inset 3px 0 var(--landing-gold);
+  background: color-mix(in srgb, var(--secondary-bg) 90%, var(--landing-gold));
+}
+
+.eq-workspace .playlist-item.active :is(.playlist-item-icon, .playlist-item-name) {
+  color: var(--landing-gold);
+}
+
+.eq-workspace > .player-bar {
+  width: min(1160px, calc(100% - 2 * var(--layout-gutter)));
+  background: var(--secondary-bg);
+}
+
+@media (max-width: 1024px) {
+  .eq-workspace .bento-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

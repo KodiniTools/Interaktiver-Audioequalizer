@@ -81,23 +81,38 @@ test('Dunkelgoldener Startbutton mit weisser Schrift erfüllt WCAG AA', () => {
   assert.ok(contrast(hover, '#ffffff') >= 4.5, `hover ${contrast(hover, '#ffffff')}`)
 })
 
-test('Überschriften sind nicht fett', () => {
+test('Typografie: ausschliesslich Supreme Regular', () => {
   const stage1 = read('src/assets/kodini-layout-stage1.css')
   assert.match(
     stage1,
-    /\.kodini-equalizer :is\(h1, h2, h3, h4, h5, h6\)\s*\{\s*font-weight:\s*400;\s*\}/
+    /\.kodini-equalizer,\s*\.kodini-equalizer :not\(i, \[class\*='fa-'\]\)\s*\{\s*font-family:\s*var\(--font-sans\) !important;\s*font-weight:\s*400 !important;\s*\}/
   )
-  // Keine Regel der Design-Stylesheets darf eine Überschrift wieder fett setzen.
+  // Supreme steht im Schrift-Stack an erster Stelle und die Regular-Datei ist eingebunden.
+  const main = read('src/assets/main.css')
+  assert.match(main, /--font-sans:\s*'Supreme'/)
+  assert.match(main, /url\('\/fonts\/Supreme-Regular\.woff2'\)[^}]*font-weight:\s*400;/)
+  // Die Design-Stylesheets setzen selbst weder eine andere Schrift noch ein anderes Gewicht.
   for (const file of [
     'kodini-layout-stage1.css',
     'kodini-header-stage2.css',
     'kodini-controls-stage3.css',
+    'kodini-workspace-stage4.css',
   ]) {
     const css = read(`src/assets/${file}`).replace(/\/\*[\s\S]*?\*\//g, '')
-    for (const [, selector, body] of css.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
-      if (!/\bh[1-6]\b/.test(selector)) continue
-      const weight = body.match(/font-weight:\s*([^;]+);/)?.[1].trim()
-      assert.ok(!weight || weight === '400' || weight === 'normal', `${file}: ${selector.trim()}`)
+    for (const [, weight] of css.matchAll(/font-weight:\s*([^;]+);/g)) {
+      assert.match(weight.trim(), /^(400|normal)( !important)?$/, `${file}: font-weight ${weight}`)
+    }
+    for (const [, family] of css.matchAll(/font-family:\s*([^;]+);/g)) {
+      assert.match(
+        family.trim(),
+        /^(inherit|var\(--font-sans\)( !important)?)$/,
+        `${file}: ${family}`
+      )
     }
   }
+  // Der Leertext im Visualizer-Canvas nutzt ebenfalls Supreme Regular.
+  assert.match(
+    read('src/composables/useVisualizer.js'),
+    /ctx\.font = "400 14px 'Supreme', sans-serif"/
+  )
 })
