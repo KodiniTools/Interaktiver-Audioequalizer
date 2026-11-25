@@ -193,7 +193,7 @@
 
   /* Hover colour hints at the action (Equalizer 19 save/reset buttons) */
   .reset-btn:not(.danger-btn):hover:not(:disabled) {
-    background: var(--button-bg);
+    background: var(--button-grad);
     border-color: var(--button-bg);
     color: var(--on-button);
   }

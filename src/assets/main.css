@@ -64,6 +64,8 @@
   --button-bg: #8f6320;
   --button-bg-hover: #a8762a;
   --on-button: #ffffff;
+  --button-grad: linear-gradient(180deg, #9c6c26 0%, #7a5218 45%, #4a2f0a 100%);
+  --button-grad-hover: linear-gradient(180deg, #8c5f1f 0%, #6a4614 45%, #402908 100%);
   /* EQ band colours: boost in the brand accent, cut in the secondary accent.
      Traffic-light colours stay reserved for meters and status. */
   --eq-boost: var(--accent-primary);
@@ -142,6 +144,8 @@
   --button-bg: #8f6320;
   --button-bg-hover: #755019;
   --on-button: #ffffff;
+  --button-grad: linear-gradient(180deg, #9c6c26 0%, #7a5218 45%, #4a2f0a 100%);
+  --button-grad-hover: linear-gradient(180deg, #8c5f1f 0%, #6a4614 45%, #402908 100%);
   /* Re-resolve the aliases against the light values */
   --eq-boost: var(--accent-primary);
   --eq-cut: var(--accent-secondary);
@@ -302,7 +306,7 @@ select:focus-visible {
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: var(--button-bg);
+  background: var(--button-grad);
   color: var(--on-button);
   display: flex;
   align-items: center;
@@ -315,7 +319,7 @@ select:focus-visible {
 }
 
 .home-icon:hover {
-  background: var(--button-bg-hover);
+  background: var(--button-grad-hover);
 }
 
 /* ===== LAYOUT: App-Shell (visualizer hero + bento grid) ===== */
@@ -432,13 +436,13 @@ select:focus-visible {
 }
 
 .btn-primary {
-  background: var(--button-bg);
+  background: var(--button-grad);
   border-color: var(--button-bg);
   color: var(--on-button);
 }
 
 .btn-primary:hover:not(:disabled) {
-  background: var(--button-bg-hover);
+  background: var(--button-grad-hover);
   border-color: var(--button-bg-hover);
   color: var(--on-button);
 }
@@ -496,13 +500,13 @@ select:focus-visible {
   width: 44px;
   height: 44px;
   font-size: 15px;
-  background: var(--button-bg);
+  background: var(--button-grad);
   border-color: var(--button-bg);
   color: var(--on-button);
 }
 
 .control-btn.primary:hover:not(:disabled) {
-  background: var(--button-bg-hover);
+  background: var(--button-grad-hover);
   border-color: var(--button-bg-hover);
   color: var(--on-button);
 }
@@ -546,7 +550,7 @@ select:focus-visible {
   gap: 6px;
   height: 36px;
   padding: 0 14px;
-  background: var(--button-bg);
+  background: var(--button-grad);
   border: 1px solid var(--button-bg);
   color: var(--on-button);
   border-radius: var(--radius-md);
@@ -559,7 +563,7 @@ select:focus-visible {
 }
 
 .file-upload-label:hover {
-  background: var(--button-bg-hover);
+  background: var(--button-grad-hover);
   border-color: var(--button-bg-hover);
 }
 
@@ -1261,7 +1265,7 @@ input[type='range']:hover::-moz-range-thumb {
   font-weight: 600;
   text-decoration: none;
   border: 1px solid transparent;
-  background: var(--button-bg);
+  background: var(--button-grad);
   color: var(--on-button);
   transition:
     background 0.2s,
@@ -1270,7 +1274,7 @@ input[type='range']:hover::-moz-range-thumb {
 }
 
 .cta-button:hover {
-  background: var(--button-bg-hover);
+  background: var(--button-grad-hover);
   transform: translateY(-1px);
 }
 
