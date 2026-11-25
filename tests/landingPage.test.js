@@ -73,12 +73,21 @@ function contrast(a, b) {
 
 test('Dunkelgoldener Startbutton mit weisser Schrift erfüllt WCAG AA', () => {
   const css = read('src/assets/kodini-layout-stage1.css')
-  const fill = css.match(/--landing-fill:\s*(#[0-9a-f]{6})/i)?.[1]
-  const hover = css.match(/\.eq-landing-cta:hover\s*\{[^}]*background:\s*(#[0-9a-f]{6})/i)?.[1]
-  assert.ok(fill && hover, 'Button-Farben gefunden')
+  // Der Startbutton trägt den Button-Verlauf (wie Equalizer 19), Hover die Hover-Fassung.
+  assert.match(css, /\.eq-landing-cta\s*\{[^}]*background:\s*var\(--button-grad\);/)
+  assert.match(css, /\.eq-landing-cta:hover\s*\{[^}]*background:\s*var\(--button-grad-hover\);/)
   assert.match(css, /\.eq-landing-cta\s*\{[^}]*color:\s*#fff;/)
-  assert.ok(contrast(fill, '#ffffff') >= 4.5, `fill ${contrast(fill, '#ffffff')}`)
-  assert.ok(contrast(hover, '#ffffff') >= 4.5, `hover ${contrast(hover, '#ffffff')}`)
+  // Jede Stufe beider Verläufe hält mit weisser Schrift 4,5:1.
+  const main = read('src/assets/main.css')
+  const grads = [...main.matchAll(/--button-grad(?:-hover)?:\s*(linear-gradient\([^;]+\));/g)]
+  assert.equal(grads.length, 4, 'Verlauf und Hover in beiden Themes')
+  for (const [, value] of grads) {
+    const stops = value.match(/#[0-9a-f]{6}/gi)
+    assert.equal(stops.length, 3, value)
+    for (const stop of stops) {
+      assert.ok(contrast(stop, '#ffffff') >= 4.5, `${stop} ${contrast(stop, '#ffffff')}`)
+    }
+  }
 })
 
 test('Typografie: ausschliesslich Supreme Regular', () => {

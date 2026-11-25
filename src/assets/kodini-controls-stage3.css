@@ -50,14 +50,14 @@
   min-height: 40px;
   border-color: var(--control-fill);
   border-radius: 8px;
-  background: var(--control-fill);
+  background: var(--button-grad);
   color: #fff;
 }
 
 .kodini-equalizer .player-bar .file-upload-label:hover,
 .kodini-equalizer .player-bar .control-btn.primary:hover:not(:disabled) {
   border-color: var(--control-fill-hover);
-  background: var(--control-fill-hover);
+  background: var(--button-grad-hover);
   color: #fff;
 }
 

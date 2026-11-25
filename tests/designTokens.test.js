@@ -59,3 +59,29 @@ test('Button-Verlauf: Primärbuttons nutzen --button-grad', () => {
     assert.match(rule, /background: var\(--button-grad\)/, sel)
   }
 })
+
+test('Button-Verlauf: auch die Stage-Styles füllen Buttons mit --button-grad', () => {
+  const read = (name) => readFileSync(new URL(`../src/assets/${name}`, import.meta.url), 'utf8')
+  const ruleOf = (source, selector) => {
+    const i = source.indexOf(`${selector} {`)
+    assert.ok(i >= 0, selector)
+    return source.slice(i, source.indexOf('}', i))
+  }
+  const layout = read('kodini-layout-stage1.css')
+  assert.match(ruleOf(layout, '.eq-landing-cta'), /background: var\(--button-grad\)/)
+  assert.match(ruleOf(layout, '.eq-landing-cta:hover'), /background: var\(--button-grad-hover\)/)
+  const controls = read('kodini-controls-stage3.css')
+  assert.match(
+    ruleOf(controls, '.kodini-equalizer .player-bar .control-btn.primary'),
+    /background: var\(--button-grad\)/
+  )
+  const header = read('kodini-header-stage2.css')
+  assert.match(
+    ruleOf(header, '.global-nav .global-nav-lang-btn.active'),
+    /background: var\(--button-grad\) !important/
+  )
+  assert.match(
+    ruleOf(header, ".eq-local-theme[aria-pressed='true']"),
+    /background: var\(--button-grad\)/
+  )
+})
