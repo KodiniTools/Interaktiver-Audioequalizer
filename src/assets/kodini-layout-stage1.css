@@ -88,13 +88,13 @@
   margin-top: 24px;
   padding: 11px 19px;
   border-radius: 9px;
-  background: var(--landing-fill);
+  background: var(--button-grad);
   color: #fff;
   text-decoration: none;
 }
 
 .eq-landing-cta:hover {
-  background: #764f18;
+  background: var(--button-grad-hover);
   color: #fff;
 }
 

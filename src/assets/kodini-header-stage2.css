@@ -56,7 +56,7 @@ html body.audio-equalizer-page .global-nav .global-nav-dropdown-menu {
 }
 
 html body.audio-equalizer-page .global-nav .global-nav-lang-btn.active {
-  background: var(--eq-nav-gold) !important;
+  background: var(--button-grad) !important;
   color: #fff !important;
 }
 
@@ -116,7 +116,7 @@ html body.audio-equalizer-page .global-nav :is(a, button):focus-visible,
 
 .eq-local-theme[aria-pressed='true'] {
   border-color: var(--eq-nav-gold);
-  background: var(--eq-nav-gold);
+  background: var(--button-grad);
   color: #fff;
 }
 
