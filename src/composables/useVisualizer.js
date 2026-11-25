@@ -23,8 +23,8 @@ function getThemeColors() {
   const style = getComputedStyle(document.documentElement)
   return {
     bg: style.getPropertyValue('--secondary-bg').trim() || '#1a1a22',
-    accent: style.getPropertyValue('--accent-primary').trim() || '#c9984d',
-    accentAlt: style.getPropertyValue('--accent-secondary').trim() || '#014f99',
+    accent: style.getPropertyValue('--accent-primary').trim() || '#d4a257',
+    accentAlt: style.getPropertyValue('--accent-secondary').trim() || '#086a80',
     textMuted: style.getPropertyValue('--text-muted').trim() || '#7a8da0',
   }
 }
