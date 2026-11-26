@@ -24,7 +24,7 @@ test('Titel zweifarbig: Gold und Logo-Blau, je Modus', () => {
   assert.match(landing, /<span class="eq-title-lead">\{\{ titleParts\.lead \}\}<\/span>/)
   assert.match(landing, /<span class="eq-title-accent">\{\{ titleParts\.accent \}\}<\/span>/)
   const [dark, light] = css.split(".kodini-equalizer[data-theme='light'] {")
-  assert.match(dark, /--landing-title-gold:\s*#775115;/)
+  assert.match(dark, /--landing-title-gold:\s*#e6bc76;/)
   assert.match(dark, /--landing-title-blue:\s*#48a0d8;/)
   assert.match(light, /--landing-title-gold:\s*#775115;/)
   assert.match(light, /--landing-title-blue:\s*#0058a0;/)
