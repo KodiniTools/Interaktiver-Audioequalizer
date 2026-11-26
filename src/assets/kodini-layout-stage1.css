@@ -12,6 +12,12 @@
   --landing-focus: #69dce8;
   --landing-glow: rgba(25, 111, 158, 0.21);
   --landing-fill: #8f6320;
+  /* Landingpage: Titel zweifarbig, Untertitel Cyan, Lichtverläufe oben */
+  --landing-title-gold: #e6bc76;
+  --landing-title-blue: #48a0d8;
+  --landing-kicker: #69d7e9;
+  --landing-light-cyan: rgba(105, 215, 233, 0.16);
+  --landing-light-blue: rgba(72, 160, 216, 0.2);
   --layout-gap: clamp(14px, 2vw, 24px);
   --layout-gutter: clamp(10px, 2.5vw, 28px);
   color: var(--text-primary);
@@ -31,6 +37,11 @@
   --landing-gold: #775115;
   --landing-focus: #086d83;
   --landing-glow: rgba(84, 160, 194, 0.16);
+  --landing-title-gold: #775115;
+  --landing-title-blue: #0058a0;
+  --landing-kicker: #086a80;
+  --landing-light-cyan: rgba(8, 106, 128, 0.1);
+  --landing-light-blue: rgba(0, 88, 160, 0.1);
 }
 
 /*
@@ -51,9 +62,22 @@
   margin-inline: auto;
 }
 
+/* Landingpage: zwei Lichtverläufe oben (Cyan rechts, Blau links) über 42rem. */
+.kodini-equalizer:not(.eq-workspace) {
+  background:
+    radial-gradient(ellipse 60% 42rem at 85% 0, var(--landing-light-cyan), transparent 70%)
+      no-repeat,
+    radial-gradient(ellipse 60% 42rem at 15% 0, var(--landing-light-blue), transparent 70%)
+      no-repeat,
+    var(--primary-bg);
+  background-size:
+    100% 42rem,
+    100% 42rem,
+    auto;
+}
+
 .eq-landing-hero {
   padding-block: clamp(48px, 8vw, 108px);
-  background: radial-gradient(ellipse at 72% 12%, var(--landing-glow), transparent 66%);
 }
 
 .eq-landing-grid {
@@ -65,16 +89,26 @@
 
 .eq-landing h1 {
   margin: 0;
-  font-size: clamp(2.45rem, 5.2vw, 4.5rem);
-  line-height: 1.04;
+  font-size: clamp(2.25rem, 5.25vw, 4.5rem);
+  line-height: 1.05;
   letter-spacing: -0.045em;
   overflow-wrap: anywhere;
 }
 
+.eq-landing h1 .eq-title-lead {
+  display: block;
+  color: var(--landing-title-gold);
+}
+
+.eq-landing h1 .eq-title-accent {
+  display: block;
+  color: var(--landing-title-blue);
+}
+
 .eq-landing-kicker {
   margin: 18px 0 8px;
-  color: var(--landing-gold);
-  font-size: 1.17rem;
+  color: var(--landing-kicker);
+  font-size: 16px;
 }
 
 .eq-landing-description {

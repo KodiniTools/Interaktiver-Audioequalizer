@@ -55,3 +55,15 @@ export const LANDING_COPY = {
     ],
   },
 }
+
+/**
+ * Teilt den Seitentitel am ersten Leerzeichen: «Interaktiver» | «Audio-Equalizer».
+ * Ohne Leerzeichen steht alles im ersten Teil.
+ */
+export function splitTitle(title) {
+  const text = String(title ?? '').trim()
+  const i = text.indexOf(' ')
+  return i === -1
+    ? { lead: text, accent: '' }
+    : { lead: text.slice(0, i), accent: text.slice(i + 1) }
+}

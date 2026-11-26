@@ -3,7 +3,10 @@
     <div class="eq-landing-hero">
       <div class="eq-landing-wrap eq-landing-grid">
         <div>
-          <h1 id="eq-landing-title">{{ t('header.title') }}</h1>
+          <h1 id="eq-landing-title">
+            <span class="eq-title-lead">{{ titleParts.lead }}</span>
+            <span class="eq-title-accent">{{ titleParts.accent }}</span>
+          </h1>
           <p class="eq-landing-kicker">{{ copy.kicker }}</p>
           <p class="eq-landing-description">{{ copy.description }}</p>
           <a class="eq-landing-cta" :href="ctaHref">{{ copy.cta }}</a>
@@ -37,12 +40,14 @@
   import { computed } from 'vue'
   import heroImage from '../assets/equalizer-hero.webp'
   import { useI18nStore } from '../stores/i18n'
-  import { LANDING_COPY } from '../config/landingCopy'
+  import { LANDING_COPY, splitTitle } from '../config/landingCopy'
   import { OVERVIEW_ANCHOR_ID } from '../config/pageNavigation'
   import { pageHref, workspacePath } from '../utils/pageRoutes'
 
   const i18n = useI18nStore()
   const t = i18n.t
   const copy = computed(() => LANDING_COPY[i18n.currentLang] ?? LANDING_COPY.de)
+  /** Titel zweifarbig: erstes Wort (Gold) und Rest (Logo-Blau). */
+  const titleParts = computed(() => splitTitle(t('header.title')))
   const ctaHref = computed(() => pageHref(workspacePath, i18n.currentLang))
 </script>
