@@ -15,8 +15,8 @@
           class="eq-landing-image"
           :src="heroImage"
           :alt="copy.imageAlt"
-          width="960"
-          height="540"
+          width="1280"
+          height="720"
           fetchpriority="high"
         />
       </div>
