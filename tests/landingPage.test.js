@@ -129,3 +129,24 @@ test('Typografie: ausschliesslich Supreme Regular', () => {
     /ctx\.font = "400 14px 'Supreme', sans-serif"/
   )
 })
+
+test('Illustration ist 16:9 und passt zu width/height im Markup', () => {
+  const bytes = readFileSync(new URL('../src/assets/equalizer-hero.webp', import.meta.url))
+  // VP8X-Chunk: Canvas-Breite/-Höhe als 24-Bit little endian, jeweils minus 1
+  let width, height
+  const chunk = bytes.subarray(12, 16).toString('ascii')
+  if (chunk === 'VP8X') {
+    width = bytes.readUIntLE(24, 3) + 1
+    height = bytes.readUIntLE(27, 3) + 1
+  } else if (chunk === 'VP8 ') {
+    width = bytes.readUInt16LE(26) & 0x3fff
+    height = bytes.readUInt16LE(28) & 0x3fff
+  } else {
+    const b = bytes.readUInt32LE(21)
+    width = (b & 0x3fff) + 1
+    height = ((b >> 14) & 0x3fff) + 1
+  }
+  assert.equal(width * 9, height * 16)
+  const landing = read('src/components/LandingPage.vue')
+  assert.match(landing, new RegExp(`width="${width}"\\s+height="${height}"`))
+})
